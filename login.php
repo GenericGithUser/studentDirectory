@@ -2,7 +2,7 @@
   session_start();
 
   // Database connection parameters
-  $dbname = "tutorial";
+  $dbname = "dbstudentdirectory";
   $username = "root";
   $password = "";
   $host = "localhost";

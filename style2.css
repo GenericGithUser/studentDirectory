@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
+*{
+    font-family: inter;
+    margin: 0;
+}
+.navbar{
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 5px solid gray;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(245, 245, 169);
+}
+.navbar h3{
+    margin-left: 10px;
+}
+.navbar img{
+    margin-left: 20px;
+    width: 75px;
+}
+.navbar p,a{
+    margin-left: auto;
+    margin-right: 30px;
+    text-decoration: none;
+    color: black;
+    transition: all 0.6s;
+}
+
+.navbar .logout{
+    width: 30px;
+    padding: 6px;
+    vertical-align: middle;
+}
+.navbar p:hover,a:hover{
+    background-color: pink;
+}
+.banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: pre-wrap;
+    font-size: 1.5em;
+    height: 50vh;
+    background:url(img/bg.jpg) center center fixed;
+    background-size: cover;
+    border-bottom:2px solid gray;
+    color: black;
+    
+}
+.banner h2{
+    color: antiquewhite;
+}
+.content{
+    margin: 15px auto auto auto;
+    padding: 10px;
+    width: 90%;
+    background-color: burlywood;
+
+}
+.content h1{
+    text-align: center;
+}
+.container{
+    width: 75%;
+    margin: 10px auto auto auto;
+    display: grid;
+    grid-template-columns: 500px 500px;
+    grid-column-gap: 10px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.search img{
+    width: 100px;
+    display: block;
+    margin: auto;
+}
+.viewAll img{
+    margin: auto;
+    display: block;
+    width:150px;
+}
+.container .opt{
+    background-color: antiquewhite;
+    padding: 10px;
+    border-radius: 15px;
+    border: 8px solid gray;
+    text-align: center;
+    transition: box-shadow 0.5s;
+}
+.container .opt:hover{
+   box-shadow: 0 5px 5px 4px black;
+}
+.searchAndResults{
+    display: none;
+    margin-top: 15px;
+    text-align: center;
+}
+#inpbx{
+    font-size: 1.8em;
+    border: 3px solid gray;
+    border-radius: 10px;
+    transition: border 0.5s;
+}
+#inpbx:focus{
+    border: 4px solid skyblue;
+}
+#srchbtn{
+    font-size: 1.4em;
+    padding: 6px;
+    
+}
+.results{
+    margin: 10px auto;
+    padding: 10px;
+    background-color: aliceblue;
+    width: 80%;
+    border: 3px solid gray;
+    border-radius:10px ;
+}
+.AllRecords{
+    display: none;
+    width: 80%;
+    background-color: white;
+    margin: auto;
+    text-align: center;
+    border: 3px solid gray;
+    padding: 10px;
+}
