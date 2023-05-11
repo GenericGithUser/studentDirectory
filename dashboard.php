@@ -29,6 +29,10 @@ if (!isset($_SESSION['user_id'])) {
   <div class="textContainer">
     <h1>Dashboard</h1>
     <?php echo "Welcome, " . $_SESSION['user_name'] . "!"; ?>
+    <?php
+		$time = date('h:i:s A');
+		echo "<p>The current time is: " . $time . "</p>";
+	?>x
     <p>You are now logged in.</p>
 
     <a href="login.php">Logout</a>
