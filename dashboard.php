@@ -8,8 +8,6 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-// Display user information
-echo "Welcome, " . $_SESSION['user_email'] . "!";
 ?>
 
 <!DOCTYPE html>
@@ -28,9 +26,13 @@ echo "Welcome, " . $_SESSION['user_email'] . "!";
 </head>
 
 <body>
-  <h1>Dashboard</h1>
-  <p>You are now logged in.</p>
-  <a href="login.php">Logout</a>
+  <div class="textContainer">
+    <h1>Dashboard</h1>
+    <?php echo "Welcome, " . $_SESSION['user_name'] . "!"; ?>
+    <p>You are now logged in.</p>
+
+    <a href="login.php">Logout</a>
+  </div>
 </body>
 
 </html>

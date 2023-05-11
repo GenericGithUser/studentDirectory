@@ -14,9 +14,11 @@
 </head>
 
 <body>
+  <div class="textContainer">
   <h1>Error</h1>
   <p>Invalid login credentials. Please try again.</p>
   <a href="login.php">Back to Login Page</a>
+  </div>
 </body>
 
 </html>

@@ -4,8 +4,6 @@ $dbname = "dbstudentdirectory";
 $username = "root";
 $password = "";
 $host = "localhost";
-
-
 // Create a new PDO instance
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
