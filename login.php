@@ -31,6 +31,7 @@
         // Store user information in session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_email'] = $user['email'];
+        $_SESSION['user_name'] = $user['name'];
 
         // Redirect to dashboard.php
         header("Location: dashboard.php");

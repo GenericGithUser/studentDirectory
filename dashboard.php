@@ -9,7 +9,12 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Display user information
-echo "Welcome, " . $_SESSION['user_email'] . "!";
+echo "Welcome, " . $_SESSION['user_name'] . "!";
+ // Replace with user name
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -28,9 +33,11 @@ echo "Welcome, " . $_SESSION['user_email'] . "!";
 </head>
 
 <body>
+  <div class="textContainer">
   <h1>Dashboard</h1>
   <p>You are now logged in.</p>
   <a href="login.php">Logout</a>
+  </div>
 </body>
 
 </html>
