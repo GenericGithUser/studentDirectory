@@ -8,10 +8,6 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -31,11 +27,11 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
   <div class="textContainer">
-  <h1>Dashboard</h1>
-  <?php echo "Welcome, " . $_SESSION['user_name'] . "!"; ?> 
-  <p>You are now logged in.</p>
+    <h1>Dashboard</h1>
+    <?php echo "Welcome, " . $_SESSION['user_name'] . "!"; ?>
+    <p>You are now logged in.</p>
 
-  <a href="login.php">Logout</a>
+    <a href="login.php">Logout</a>
   </div>
 </body>
 
