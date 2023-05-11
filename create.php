@@ -2,7 +2,7 @@
 // Database connection parameters
 $dbname = "tutorial";
 $username = "root";
-$password = "juljulshet123";
+$password = "";
 $host = "localhost";
 
 
