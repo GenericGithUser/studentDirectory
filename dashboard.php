@@ -8,9 +8,6 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-// Display user information
-echo "Welcome, " . $_SESSION['user_name'] . "!";
- // Replace with user name
 
 
 
@@ -35,7 +32,9 @@ echo "Welcome, " . $_SESSION['user_name'] . "!";
 <body>
   <div class="textContainer">
   <h1>Dashboard</h1>
+  <?php echo "Welcome, " . $_SESSION['user_name'] . "!"; ?> 
   <p>You are now logged in.</p>
+
   <a href="login.php">Logout</a>
   </div>
 </body>
