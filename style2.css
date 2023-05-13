@@ -31,9 +31,9 @@
     padding: 6px;
     vertical-align: middle;
 }
-.navbar p:hover,a:hover{
+/* .navbar p:hover,a:hover{
     background-color: pink;
-}
+} */
 .banner{
     display: flex;
     justify-content: center;
@@ -55,7 +55,11 @@
     padding: 10px;
     width: 90%;
     background-color: burlywood;
-
+    border: 2px solid gray;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px 5px gray;
+    
+    
 }
 .content h1{
     text-align: center;
@@ -64,21 +68,23 @@
     width: 75%;
     margin: 10px auto auto auto;
     display: grid;
-    grid-template-columns: 500px 500px;
+    grid-template-columns: repeat(2,20vw);
     grid-column-gap: 10px;
     padding: 10px;
     justify-content: center;
+    
 }
 
 .search img{
     width: 80px;
     display: block;
     margin: auto;
+    
 }
 .viewAll img{
-    margin: auto;
+    margin: auto auto 10px auto;
     display: block;
-    width:110px;
+    width:120px;
 }
 .container .opt{
     background-color: antiquewhite;
@@ -101,6 +107,7 @@
     border: 3px solid gray;
     border-radius: 10px;
     transition: border 0.5s;
+    outline: none;
 }
 #inpbx:focus{
     border: 4px solid skyblue;
@@ -108,15 +115,47 @@
 #srchbtn{
     font-size: 1.4em;
     padding: 6px;
-    
+    border-radius: 10px;
+    transition: background-color 0.5s;
+}
+#srchbtn:hover{
+    background-color: lightgreen;
+    cursor: pointer;
+}
+.label{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.selectOption{
+    font-size: 1em;
+    padding: 3px;
+    border-radius: 5px;
+    outline: none;
 }
 .results{
+    display: none;
     margin: 10px auto;
     padding: 10px;
-    background-color: aliceblue;
     width: 80%;
     border: 3px solid gray;
     border-radius:10px ;
+    background-color: rgb(245, 245, 169);
+}
+.resultbx{
+    margin-top: 5px;
+    border: 3px solid gray;
+    padding: 5px;
+    background-color: bisque;
+    border-radius: 10px;
+}
+.result{
+    border: 3px solid green;
+    padding: 10px;
+    text-align: start;
+    margin: 5px;
+    color: darkslategray;
+    cursor: pointer;
+    border-radius: 10px;
 }
 .AllRecords{
     display: none;
@@ -126,4 +165,39 @@
     text-align: center;
     border: 3px solid gray;
     padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer{
+    padding: 10px;
+    background-color: black;
+    color: azure;
+    display: grid;
+    margin-top: 100px;
+    grid-template-columns: repeat(3,auto);
+    gap: 40px;
+   justify-content: center;
+}
+.footer a{
+    color: azure;
+    
 }
