@@ -41,7 +41,7 @@
     white-space: pre-wrap;
     font-size: 1.5em;
     height: 50vh;
-    background:url(img/bg.jpg) center center fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url(img/bg.jpg) center center fixed;
     background-size: cover;
     border-bottom:2px solid gray;
     color: black;
@@ -71,14 +71,14 @@
 }
 
 .search img{
-    width: 100px;
+    width: 80px;
     display: block;
     margin: auto;
 }
 .viewAll img{
     margin: auto;
     display: block;
-    width:150px;
+    width:110px;
 }
 .container .opt{
     background-color: antiquewhite;
