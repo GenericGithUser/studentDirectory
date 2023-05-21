@@ -25,10 +25,127 @@
         </div>
         <div class="contents">
             <div class="genInfo">
-                aa
+                <div class="head">
+                    <h1>General Information</h1>
+                        <div class="opt">
+                            <div class="modifyBtn btn">Modify</div>
+                            <div class="deleteBtn btn">DELETE</div>
+                        </div>
+                </div>
+                <div class="info">
+                    <h2>Learner's Reference Number: <span class="name">00000000000</span></h2>
+                    <h2>Name:<span class="name"> John Doe</span></h2>
+                    <h2>Age:<span class="name"> 00</span></h2>
+                    <h2>Gender:<span class="name">Gender</span></h2>
+                    <h2>Birthday:<span class="name">Month-Day-Year</span></h2>
+                    <h2>Grade Level:<span class="name">00</span></h2>
+                    <h2>Strand:<span class="name">XXX</span></h2>
+                    <h2>Date Enrolled:<span class="name">Month-Day-Year</span></h2>
+                    <h2>Phone Number:<span class="name">0000000000000</span></h2>
+                </div>
             </div>
             <div class="grades">
-                75
+                <div class="head">
+                    <h1>Student's Grades</h1>
+                    <div class="opt">
+                            <div class="modifyBtn btn">Modify</div>
+                        </div>
+                </div>
+                <!--VERY BIG SPAGHETTI CODE FOR TABLE DOWN BELOW-->
+                <div class="gradeBox">
+                    <div class="firstGrd box">
+                        <div class="header">First Grading Grade</div>
+                        <div class="sub1">First</div>
+                        <div class="sub2">Second</div>
+                        <div class="sub3">Thrid</div>
+                        <div class="sub4">Fourth</div>
+                        <div class="gr1st">a</div>
+                        <div class="gr1st-2">a</div>
+                        <div class="gr1st-3">a</div>
+                        <div class="gr1st-4">a</div>
+                        <div class="gr2nd">a</div>
+                        <div class="gr2nd-2">a</div>
+                        <div class="gr2nd-3">a</div>
+                        <div class="gr2nd-4">a</div>
+                        <div class="gr3rd">a</div>
+                        <div class="gr3rd-2">a</div>
+                        <div class="gr3rd-3">a</div>
+                        <div class="gr3rd-4">a</div>
+                        <div class="gr4th">a</div>
+                        <div class="gr4th-2">a</div>
+                        <div class="gr4th-3">a</div>
+                        <div class="gr4th-4">a</div>
+                    </div>
+                    <div class="secGrd box">
+                        <div class="header">Second Grading Grade</div>
+                        <div class="sub1">First</div>
+                        <div class="sub2">Second</div>
+                        <div class="sub3">Thrid</div>
+                        <div class="sub4">Fourth</div>
+                        <div class="gr1st">a</div>
+                        <div class="gr1st-2">a</div>
+                        <div class="gr1st-3">a</div>
+                        <div class="gr1st-4">a</div>
+                        <div class="gr2nd">a</div>
+                        <div class="gr2nd-2">a</div>
+                        <div class="gr2nd-3">a</div>
+                        <div class="gr2nd-4">a</div>
+                        <div class="gr3rd">a</div>
+                        <div class="gr3rd-2">a</div>
+                        <div class="gr3rd-3">a</div>
+                        <div class="gr3rd-4">a</div>
+                        <div class="gr4th">a</div>
+                        <div class="gr4th-2">a</div>
+                        <div class="gr4th-3">a</div>
+                        <div class="gr4th-4">a</div>
+                    </div>
+                    <div class="thrGrd box">
+                        <div class="header">Third Grading Grade</div>
+                        <div class="sub1">First</div>
+                        <div class="sub2">Second</div>
+                        <div class="sub3">Thrid</div>
+                        <div class="sub4">Fourth</div>
+                        <div class="gr1st">a</div>
+                        <div class="gr1st-2">a</div>
+                        <div class="gr1st-3">a</div>
+                        <div class="gr1st-4">a</div>
+                        <div class="gr2nd">a</div>
+                        <div class="gr2nd-2">a</div>
+                        <div class="gr2nd-3">a</div>
+                        <div class="gr2nd-4">a</div>
+                        <div class="gr3rd">a</div>
+                        <div class="gr3rd-2">a</div>
+                        <div class="gr3rd-3">a</div>
+                        <div class="gr3rd-4">a</div>
+                        <div class="gr4th">a</div>
+                        <div class="gr4th-2">a</div>
+                        <div class="gr4th-3">a</div>
+                        <div class="gr4th-4">a</div>
+                    </div>
+                    <div class="fourGrd box">
+                        <div class="header">Fourth Grading Grade</div>
+                        <div class="sub1">First</div>
+                        <div class="sub2">Second</div>
+                        <div class="sub3">Thrid</div>
+                        <div class="sub4">Fourth</div>
+                        <div class="gr1st">a</div>
+                        <div class="gr1st-2">a</div>
+                        <div class="gr1st-3">a</div>
+                        <div class="gr1st-4">a</div>
+                        <div class="gr2nd">a</div>
+                        <div class="gr2nd-2">a</div>
+                        <div class="gr2nd-3">a</div>
+                        <div class="gr2nd-4">a</div>
+                        <div class="gr3rd">a</div>
+                        <div class="gr3rd-2">a</div>
+                        <div class="gr3rd-3">a</div>
+                        <div class="gr3rd-4">a</div>
+                        <div class="gr4th">a</div>
+                        <div class="gr4th-2">a</div>
+                        <div class="gr4th-3">a</div>
+                        <div class="gr4th-4">a</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -40,7 +40,7 @@
     grid-template-rows: 0.5fr 1fr;
     background-color: bisque;
     border-right: 5px solid gray;
-    height: 90vh;
+    height: 103vh;
 }
 .profile .img > img{
     display: block;
@@ -64,9 +64,166 @@
 }
 .genInfo{
     display: block;
-    
+    background-color: antiquewhite;
+    padding: 10px;
+    height: 100vh;
+}
+.head{
+    display: flex;
+    flex-wrap: wrap ;
+}
+.head > .opt{
+    display: flex;
+    align-self: center;
+    margin-left: auto;
+}
+.btn{
+    padding: 5px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+.modifyBtn{
+    background-color: lightgreen;
+    transition: all 0.5s;
+}
+.modifyBtn:hover{
+    border: 2px solid green;
+    box-shadow: 0 0 25px 5px lightgreen;
+}
+.deleteBtn{
+    background-color: red;
+    transition: all 0.5s;
+}
+.deleteBtn:hover{
+    border: 2px solid red;
+    box-shadow: 0 0 10px  darkred;
+}
+
+.info{
+    padding: 10px;
+}
+.name{
+    color: green;
+    font-weight: 400;
 }
 .grades{
     display: none;
+    background-color: antiquewhite;
+    padding: 10px;
+    height: 100vh;
     
+}
+.gradeBox{
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: repeat(2,auto);
+    gap: 10px;
+    justify-items: center;
+}
+/*WARNING VERY VERY VERY SPAGHETTI CODE DOWN BELOW*/
+.box{
+    overflow: scroll;
+    border: 5px solid gray;
+    width: 37vw;
+    height: 260px;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas: 'header header header header header'
+                         'sub1 gr1st gr2nd gr3rd gr4th'
+                         'sub2 gr1st-2 gr2nd-2 gr3rd-2 gr4th-2'
+                         'sub3 gr1st-3 gr2nd-3 gr3rd-3 gr4th-3'
+                         'sub4 gr1st-4 gr2nd-4 gr3rd-4 gr4th-4'
+                        
+    ;
+}
+.box .header{
+    grid-area: header;
+   text-align: center;
+   border-bottom: 2px solid gray;
+   align-self: center;
+}
+.box .sub1{
+    grid-area: sub1;
+    border: 2px solid gray;
+}
+.box .sub2{
+    grid-area: sub2;
+    border: 2px solid gray;
+}
+.box .sub3{
+    grid-area: sub3;
+    border: 2px solid gray;
+}
+.box .sub4{
+    grid-area: sub4;
+    border: 2px solid gray;
+}
+.box .gr1st{
+    grid-area: gr1st;
+    border: 2px solid gray;
+}
+.box .gr1st-2{
+    grid-area: gr1st-2;
+    border: 2px solid gray;
+}
+.box .gr1st-3{
+    grid-area: gr1st-3;
+    border: 2px solid gray;
+}
+.box .gr1st-4{
+    grid-area: gr1st-4;
+    border: 2px solid gray;
+}
+.box .gr2nd{
+    grid-area: gr2nd;
+    border: 2px solid gray;
+}
+.box .gr2nd-2{
+    grid-area: gr2nd-2;
+    border: 2px solid gray;
+}
+.box .gr2nd-3{
+    grid-area: gr2nd-3;
+    border: 2px solid gray;
+}
+.box .gr2nd-4{
+    grid-area: gr2nd-4;
+    border: 2px solid gray;
+}
+.box .gr3rd{
+    grid-area: gr3rd;
+    border: 2px solid gray;
+}
+.box .gr3rd-2{
+    grid-area: gr3rd-2;
+    border: 2px solid gray;
+}
+.box .gr3rd-3{
+    grid-area: gr3rd-3;
+    border: 2px solid gray;
+}
+.box .gr3rd-4{
+    grid-area: gr3rd-4;
+    border: 2px solid gray;
+}
+.box .gr4th{
+    grid-area: gr4th;
+    border: 2px solid gray;
+}
+.box .gr4th-2{
+    grid-area: gr4th-2;
+    border: 2px solid gray;
+}
+.box .gr4th-3{
+    grid-area: gr4th-3;
+    border: 2px solid gray;
+}
+.box .gr4th-4{
+    grid-area: gr4th-4;
+    border: 2px solid gray;
 }
