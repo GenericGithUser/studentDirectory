@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_id'])) {
 		echo "<p>The current time is: " . $time . "</p>";
 	?>x
     <p>You are now logged in.</p>
-
+    <a href="page.php">Go to Directory</a><!--Temp way to go with session? idk-->
     <a href="login.php">Logout</a>
   </div>
 </body>

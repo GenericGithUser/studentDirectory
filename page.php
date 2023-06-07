@@ -1,3 +1,16 @@
+<?php
+session_start();
+// Include Connection Function
+include 'credentials.php';
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login.php
+    header("Location: login.php");
+    exit;
+  }
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +27,7 @@
         <p><a href="login.php"><img src="img/logout.png" class="logout">Logout?</a></p>
     </div>
     <div class="banner">
-        <h2>Hello <!--Name h ere--></h2>
+        <h2>Hello <?php echo $_SESSION['user_name'] ?> </h2>
         <h2>Welcome to the Student Directory</h2>
     </div>
     <div class="content">
@@ -69,40 +82,61 @@
            </div>
         </div>
         <!--View All students option-->
+        <!--I am sure there's a better way to do this but....-->
+        <!--Should Probably just moved the connection to the top-->
         <div class="AllRecords">
             <h2>List of all students</h2>
             <div class="list">
-            <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
+             <?php 
+             try{
+                $pdo = connect();
+                // Set the PDO error mode to exception
+                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                 $viewAllSQL = "SELECT * FROM tblstudents";
+                 $stmt = $pdo->prepare($viewAllSQL);
+                 $stmt->execute();
+                 $viewAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                 if(count($viewAll)>0){
+                    foreach($viewAll as $result){
+                        echo '<a href="mockUserdata.php"><div class="result">'.$result['FirstName'].' '. $result['LastName'].'</div></a>';
+                    }
+                 }
+
+             }catch(PDOException $e) {
+                // Display an error message if unable to connect to the database
+                echo "Connection failed: " . $e->getMessage();
+              }
+             
+             ?>
             </div>
         </div>
         <!--Add a Student Option-->
         <!--Sorry for long form and a lot of divs-->
         <div class="addStuBox">
             <h2>Add a Student</h2>
-            <form action="" class="aSB_form">
+            <form action="insert.php" class="aSB_form" method="POST">
             <div class="FCont">
                     <label for="LRN" style="width: 300px; margin-left: -150px;">Learner's Reference Number</label>
-                    <input type="number" id="LRN" name="LRN" class="aSB_inpbx" maxlength="12">
+                    <input type="number" id="LRN" name="LRN" class="aSB_inpbx" maxlength="13">
                 </div>
                 <div class="FCont">
                     <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="fname" class="aSB_inpbx">
+                    <input type="text" id="fname" name="fname" class="aSB_inpbx" required>
                 </div>
                 <div class="FCont">
                     <label for="mname">Middle Name</label>
-                    <input type="text" id="mname" name="mname" class="aSB_inpbx" maxlength="10">
+                    <input type="text" id="mname" name="mname" class="aSB_inpbx" maxlength="10" required>
                 </div>
                 <div class="FCont">
                     <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lname" class="aSB_inpbx">
+                    <input type="text" id="lname" name="lname" class="aSB_inpbx" required>
                 </div>
                 <div class="FCont">
                     <label for="age">Age</label>
-                    <input type="number" id="age" name="age" class="aSB_inpbx" style="width:80px" maxlength="10" min="1">
+                    <input type="number" id="age" name="age" class="aSB_inpbx" style="width:80px" maxlength="10" min="1" required>
                     <label for="gender" style="width:100px">Gender</label>
-                    <select name="gender" id="gender" class="selectOption">
+                    <select name="gender" id="gender" class="selectOption" required>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="other">Other</option>
@@ -110,23 +144,23 @@
                 </div>
                 <div class="FCont">
                     <label for="Birthday">Date of Birth</label>
-                    <input type="date" name="Birthday" id="Birthday">
+                    <input type="date" name="Birthday" id="Birthday" required>
                 </div>
                 <div class="FCont">
                     <label for="GrdLvl" style="width:260px">Grade to be enrolled</label>
-                    <select name="GrdLvl" id="GrdLvl" class="selectOption" >
+                    <select name="GrdLvl" id="GrdLvl" class="selectOption" required>
                             <option value="none">Select A Grade</option>
-                            <option value="Grd7">Grade 7</option>
-                            <option value="Grd8">Grade 8</option>
-                            <option value="Grd9">Grade 9</option>
-                            <option value="Grd10">Grade 10</option>
-                            <option value="Grd11">Grade 11</option>
-                            <option value="Grd12">Grade 12</option>
+                            <option value="7">Grade 7</option>
+                            <option value="8">Grade 8</option>
+                            <option value="9">Grade 9</option>
+                            <option value="10">Grade 10</option>
+                            <option value="11">Grade 11</option>
+                            <option value="12">Grade 12</option>
                         </select>
                 </div>
                 <div class="FCont">
                     <label for="strand">Strand</label>
-                    <select name="strand" id="strand" class="selectOption">
+                    <select name="strand" id="strand" class="selectOption" required>
                         <option value="STEM">STEM</option>
                         <option value="ABM">ABM</option>
                         <option value="GAS">GAS</option>
@@ -136,7 +170,7 @@
                     <input type="number" name="pNumber" id="pNumber" style="width:200px" maxlength="12" class="aSB_inpbx">
                 </div>
                 <div class="FCont">
-                    <button type="button" class="aSB_btn">Submit</button>
+                    <input type="submit" class="aSB_btn" value="Submit">
                     <button type="reset" class="aSB_btn aSB_special">Reset Form?</button>
                 </div>
             </form>
