@@ -1,12 +1,10 @@
 <?php
-// Database connection parameters
-$dbname = "dbstudentdirectory";
-$username = "root";
-$password = "";
-$host = "localhost";
+// Include Server Connection Function
+include 'credentials.php';
+
 // Create a new PDO instance
 try {
-  $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+  $pdo = connect();
   // Set the PDO error mode to exception
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
