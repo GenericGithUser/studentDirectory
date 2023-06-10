@@ -115,7 +115,7 @@ if (!isset($_SESSION['user_id'])) {
         <!--Sorry for long form and a lot of divs-->
         <div class="addStuBox">
             <h2>Add a Student</h2>
-            <form action="" class="aSB_form">
+            <form action="page.php" class="aSB_form">
             <div class="FCont">
                     <label for="LRN" style="width: 300px; margin-left: -150px;">Learner's Reference Number</label>
                     <input type="number" id="LRN" name="LRN" class="aSB_inpbx" maxlength="13">
