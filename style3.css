@@ -3,6 +3,10 @@
     margin: 0;
     font-family:  inter;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 .navbar{
     display: flex;
     flex-wrap: wrap;
@@ -125,6 +129,79 @@
     gap: 10px;
     justify-items: center;
 }
+.edit{
+    margin:auto;
+    font-size: 1.1em;
+    border: 0px white;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 169);
+    box-shadow: 0 3px 25px rgba(32, 89, 194, 0.267);
+    text-align: center;
+}
+.edit::backdrop{
+    background-color: rgba(67, 240, 15, 0.507);
+}
+.addStuBox{
+    display: none;
+    text-align: center;
+    width: 75%;
+    background-color: rgb(245, 245, 169);
+    padding: 10px;
+    margin: 10px auto;
+    border: 3px solid gray;
+    border-radius: 10px;
+}
+.aSB_form{
+    margin-top: 10px;
+    font-size: 1.2em;
+    border: 3px solid grey;
+    border-radius:10px ;
+}
+.FCont{
+    padding: 10px;
+}
+.FCont label{
+   display: inline-block;
+   width: 150px;
+   text-align: right;
+}
+.aSB_inpbx{
+    font-size: 1.1em;
+    border-radius: 10px;
+    border: 2px solid gray;
+    transition: all 0.5s ease-in-out;
+    outline:none;
+}
+.aSB_inpbx:focus{
+    background-color: lightblue;
+    border-bottom: 5px solid blue;
+}
+#Birthday{
+    font-size: 1.1em;
+    padding: 5px;
+}
+.aSB_btn{
+    padding: 10px;
+    font-size: 1.1em;
+    border: 2px solid gray;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.aSB_btn:hover{
+    background-color: lightgreen;
+    box-shadow: 0 0 2px 2px green;
+    border-color:lightgreen ;
+}
+.aSB_special:hover{
+    box-shadow: 0 0 2px 2px red;
+    background-color: red;
+    border-color: red;
+}
+.aSB_special{
+    background-color: red;
+}
+
 /*WARNING VERY VERY VERY SPAGHETTI CODE DOWN BELOW*/
 .box{
     overflow: scroll;
