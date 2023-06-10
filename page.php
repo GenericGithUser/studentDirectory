@@ -87,35 +87,16 @@ if (!isset($_SESSION['user_id'])) {
         <div class="AllRecords">
             <h2>List of all students</h2>
             <div class="list">
-             <?php 
-             try{
-                $pdo = connect();
-                // Set the PDO error mode to exception
-                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                 $viewAllSQL = "SELECT * FROM tblstudents";
-                 $stmt = $pdo->prepare($viewAllSQL);
-                 $stmt->execute();
-                 $viewAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                 if(count($viewAll)>0){
-                    foreach($viewAll as $result){
-                        echo '<a href="mockUserdata.php"><div class="result">'.$result['FirstName'].' '. $result['LastName'].'</div></a>';
-                    }
-                 }
-
-             }catch(PDOException $e) {
-                // Display an error message if unable to connect to the database
-                echo "Connection failed: " . $e->getMessage();
-              }
-              $pdo = null;
-             ?>
+            <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
+             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
+             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
             </div>
         </div>
         <!--Add a Student Option-->
         <!--Sorry for long form and a lot of divs-->
         <div class="addStuBox">
             <h2>Add a Student</h2>
-            <form action="page.php" method="POST" class="aSB_form">
+            <form action="" class="aSB_form">
             <div class="FCont">
                     <label for="LRN" style="width: 300px; margin-left: -150px;">Learner's Reference Number</label>
                     <input type="number" id="LRN" name="LRN" class="aSB_inpbx" maxlength="13">
