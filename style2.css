@@ -3,6 +3,10 @@
     font-family: inter;
     margin: 0;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 .navbar{
     display: flex;
     flex-wrap: wrap;
@@ -68,7 +72,7 @@
     width: 75%;
     margin: 10px auto auto auto;
     display: grid;
-    grid-template-columns: repeat(2,20vw);
+    grid-template-columns: repeat(3,20vw);
     grid-column-gap: 10px;
     padding: 10px;
     justify-content: center;
@@ -86,6 +90,11 @@
     display: block;
     width:120px;
 }
+.addStu img{
+    margin: auto;
+    display: block;
+    width: 85px;
+}
 .container .opt{
     background-color: antiquewhite;
     padding: 10px;
@@ -93,6 +102,7 @@
     border: 8px solid gray;
     text-align: center;
     transition: box-shadow 0.5s;
+    cursor: pointer;
 }
 .container .opt:hover{
    box-shadow: 0 5px 5px 4px black;
@@ -161,11 +171,80 @@
     display: none;
     width: 80%;
     background-color: white;
-    margin: auto;
+    margin: 10px auto;
     text-align: center;
     border: 3px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    height: 30vh;
+    overflow: scroll;
+}
+.addStuBox{
+    display: none;
+    text-align: center;
+    width: 75%;
+    background-color: rgb(245, 245, 169);
+    padding: 10px;
+    margin: 10px auto;
+    border: 3px solid gray;
+    border-radius: 10px;
+}
+.aSB_form{
+    margin-top: 10px;
+    font-size: 1.2em;
+    border: 3px solid grey;
+    border-radius:10px ;
+}
+.FCont{
     padding: 10px;
 }
+.FCont label{
+   display: inline-block;
+   width: 150px;
+   text-align: right;
+}
+.aSB_inpbx{
+    font-size: 1.1em;
+    border-radius: 10px;
+    border: 2px solid gray;
+    transition: all 0.5s ease-in-out;
+    outline:none;
+}
+.aSB_inpbx:focus{
+    background-color: lightblue;
+    border-bottom: 5px solid blue;
+}
+#Birthday{
+    font-size: 1.1em;
+    padding: 5px;
+}
+.aSB_btn{
+    padding: 10px;
+    font-size: 1.1em;
+    border: 2px solid gray;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.aSB_btn:hover{
+    background-color: lightgreen;
+    box-shadow: 0 0 2px 2px green;
+    border-color:lightgreen ;
+}
+.aSB_special:hover{
+    box-shadow: 0 0 2px 2px red;
+    background-color: red;
+    border-color: red;
+}
+.aSB_special{
+    background-color: red;
+}
+
+
+
+
+
+
 
 
 

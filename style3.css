@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    font-family:  inter;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.navbar{
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 5px solid gray;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(245, 245, 169);
+}
+.navbar h3{
+    margin-left: 10px;
+}
+.navbar img{
+    margin-left: 20px;
+    width: 75px;
+}
+.navbar p,a{
+    margin-left: auto;
+    margin-right: 30px;
+    text-decoration: none;
+    color: black;
+    transition: all 0.6s;
+}
+.navbar .logout{
+    width: 30px;
+    padding: 6px;
+    vertical-align: middle;
+}
+.content{
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    
+}
+.content > .profile{
+    display: grid;
+    grid-template-rows: 0.5fr 1fr;
+    background-color: bisque;
+    border-right: 5px solid gray;
+    height: 103vh;
+}
+.profile .img > img{
+    display: block;
+    margin: 10px auto;
+    border-radius: 50%;
+    border: 5px solid green;
+    width: 150px;
+}
+
+.option{
+    padding: 20px;
+    border: 3px solid rgb(53, 243, 53);
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+.active{
+    background-color: lightgreen;
+}
+.genInfo{
+    display: block;
+    background-color: antiquewhite;
+    padding: 10px;
+    height: 100vh;
+}
+.head{
+    display: flex;
+    flex-wrap: wrap ;
+}
+.head > .opt{
+    display: flex;
+    align-self: center;
+    margin-left: auto;
+}
+.btn{
+    padding: 5px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+.modifyBtn{
+    background-color: lightgreen;
+    transition: all 0.5s;
+}
+.modifyBtn:hover{
+    border: 2px solid green;
+    box-shadow: 0 0 25px 5px lightgreen;
+}
+.deleteBtn{
+    background-color: red;
+    transition: all 0.5s;
+}
+.deleteBtn:hover{
+    border: 2px solid red;
+    box-shadow: 0 0 10px  darkred;
+}
+
+.info{
+    padding: 10px;
+}
+.name{
+    color: green;
+    font-weight: 400;
+}
+.grades{
+    display: none;
+    background-color: antiquewhite;
+    padding: 10px;
+    height: 100vh;
+    
+}
+.gradeBox{
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: repeat(2,auto);
+    gap: 10px;
+    justify-items: center;
+}
+.edit{
+    margin:auto;
+    font-size: 1.1em;
+    border: 0px white;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 169);
+    box-shadow: 0 3px 25px rgba(32, 89, 194, 0.267);
+    text-align: center;
+}
+.edit::backdrop{
+    background-color: rgba(67, 240, 15, 0.507);
+}
+.addStuBox{
+    display: none;
+    text-align: center;
+    width: 75%;
+    background-color: rgb(245, 245, 169);
+    padding: 10px;
+    margin: 10px auto;
+    border: 3px solid gray;
+    border-radius: 10px;
+}
+.aSB_form{
+    margin-top: 10px;
+    font-size: 1.2em;
+    border: 3px solid grey;
+    border-radius:10px ;
+}
+.FCont{
+    padding: 10px;
+}
+.FCont label{
+   display: inline-block;
+   width: 150px;
+   text-align: right;
+}
+.aSB_inpbx{
+    font-size: 1.1em;
+    border-radius: 10px;
+    border: 2px solid gray;
+    transition: all 0.5s ease-in-out;
+    outline:none;
+}
+.aSB_inpbx:focus{
+    background-color: lightblue;
+    border-bottom: 5px solid blue;
+}
+#Birthday{
+    font-size: 1.1em;
+    padding: 5px;
+}
+.aSB_btn{
+    padding: 10px;
+    font-size: 1.1em;
+    border: 2px solid gray;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.aSB_btn:hover{
+    background-color: lightgreen;
+    box-shadow: 0 0 2px 2px green;
+    border-color:lightgreen ;
+}
+.aSB_special:hover{
+    box-shadow: 0 0 2px 2px red;
+    background-color: red;
+    border-color: red;
+}
+.aSB_special{
+    background-color: red;
+}
+
+/*WARNING VERY VERY VERY SPAGHETTI CODE DOWN BELOW*/
+.box{
+    overflow: scroll;
+    border: 5px solid gray;
+    width: 37vw;
+    height: 260px;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas: 'header header header header header'
+                         'sub1 gr1st gr2nd gr3rd gr4th'
+                         'sub2 gr1st-2 gr2nd-2 gr3rd-2 gr4th-2'
+                         'sub3 gr1st-3 gr2nd-3 gr3rd-3 gr4th-3'
+                         'sub4 gr1st-4 gr2nd-4 gr3rd-4 gr4th-4'
+                        
+    ;
+}
+.box .header{
+    grid-area: header;
+   text-align: center;
+   border-bottom: 2px solid gray;
+   align-self: center;
+}
+.box .sub1{
+    grid-area: sub1;
+    border: 2px solid gray;
+}
+.box .sub2{
+    grid-area: sub2;
+    border: 2px solid gray;
+}
+.box .sub3{
+    grid-area: sub3;
+    border: 2px solid gray;
+}
+.box .sub4{
+    grid-area: sub4;
+    border: 2px solid gray;
+}
+.box .gr1st{
+    grid-area: gr1st;
+    border: 2px solid gray;
+}
+.box .gr1st-2{
+    grid-area: gr1st-2;
+    border: 2px solid gray;
+}
+.box .gr1st-3{
+    grid-area: gr1st-3;
+    border: 2px solid gray;
+}
+.box .gr1st-4{
+    grid-area: gr1st-4;
+    border: 2px solid gray;
+}
+.box .gr2nd{
+    grid-area: gr2nd;
+    border: 2px solid gray;
+}
+.box .gr2nd-2{
+    grid-area: gr2nd-2;
+    border: 2px solid gray;
+}
+.box .gr2nd-3{
+    grid-area: gr2nd-3;
+    border: 2px solid gray;
+}
+.box .gr2nd-4{
+    grid-area: gr2nd-4;
+    border: 2px solid gray;
+}
+.box .gr3rd{
+    grid-area: gr3rd;
+    border: 2px solid gray;
+}
+.box .gr3rd-2{
+    grid-area: gr3rd-2;
+    border: 2px solid gray;
+}
+.box .gr3rd-3{
+    grid-area: gr3rd-3;
+    border: 2px solid gray;
+}
+.box .gr3rd-4{
+    grid-area: gr3rd-4;
+    border: 2px solid gray;
+}
+.box .gr4th{
+    grid-area: gr4th;
+    border: 2px solid gray;
+}
+.box .gr4th-2{
+    grid-area: gr4th-2;
+    border: 2px solid gray;
+}
+.box .gr4th-3{
+    grid-area: gr4th-3;
+    border: 2px solid gray;
+}
+.box .gr4th-4{
+    grid-area: gr4th-4;
+    border: 2px solid gray;
+}
