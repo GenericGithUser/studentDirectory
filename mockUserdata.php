@@ -41,7 +41,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="navbar">
         <img src="img/logo.png" alt="imgmissing">
         <h3>San Francisco High School Student's Directory</h3>
-        <p><a href="page.php"><img src="img/logout.png" class="logout">Go Back?</a></p>
+        <p><a href="<?php if(isset($_SESSION['student'])){echo'stuPage.php';}else{echo 'page.php';}?>"><img src="img/logout.png" class="logout">Go Back?</a></p>
     </div>
     <div class="content">
         <div class="profile">
@@ -102,6 +102,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="FCont">
                     <label for="strand">Strand</label>
                     <select name="strand" id="strand" class="selectOption" required>
+                    <option value="JHS">JHS</option>
                         <option value="STEM">STEM</option>
                         <option value="ABM">ABM</option>
                         <option value="GAS">GAS</option>
@@ -118,7 +119,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="genInfo">
                 <div class="head">
                     <h1>General Information</h1>
-                        <div class="opt">
+                        <div class="opt"<?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
                             <div class="modifyBtn btn" onclick="showEdit()">Modify</div>
                             <div class="deleteBtn btn">DELETE</div>
                         </div>
@@ -134,6 +135,7 @@ if (!isset($_SESSION['user_id'])) {
                     <h2>Strand:<span class="name"><?php echo $result['Strand'];?></span></h2>
                     <h2>Date Enrolled:<span class="name"><?php echo date('F d,Y',strtotime($result['DateEnrolled']));?></span></h2>
                     <h2>Phone Number:<span class="name"><?php echo $result['PhoneNumber'];?></span></h2>
+                    <h2>Email:<span class="name"><?php echo $result['email'];?></span></h2>
                     
                 </div>
                 <?php }?>
@@ -142,7 +144,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="grades">
                 <div class="head">
                     <h1>Student's Grades</h1>
-                    <div class="opt">
+                    <div class="opt" <?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
                             <div class="modifyBtn btn">Modify</div>
                         </div>
                 </div>

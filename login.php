@@ -23,21 +23,48 @@ include 'credentials.php';
       $stmt->execute();
       $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      // Verify password
-      if ($user && password_verify($password, $user['password'])) {
-        // Store user information in session
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_email'] = $user['email'];
-        $_SESSION['user_name'] = $user['name'];
-
-        // Redirect to dashboard.php
-        header("Location: dashboard.php");
-        exit;
-      } else {
-        // Redirect to error.php
-        header("Location: error.php");
-        exit;
+      // Check table if user exists
+      if($user){
+        if ($user && password_verify($password, $user['password'])) {
+          // Store user information in session
+          $_SESSION['user_id'] = $user['id'];
+          $_SESSION['user_email'] = $user['email'];
+          $_SESSION['user_name'] = $user['name'];
+  
+          // Redirect to dashboard.php
+          header("Location: dashboard.php");
+          exit;
+        } else {
+          // Redirect to error.php
+          header("Location: error.php");
+          exit;
+        }
+        //Check second table if first does not show results
+      } else{
+        $sql = "SELECT * FROM tblstudents WHERE email = :email";
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindParam(':email', $email);
+      $stmt->execute();
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+      if($user){
+        if ($user && password_verify($password, $user['password'])) {
+          // Store user information in session
+          $_SESSION['user_id'] = $user['LRN'];
+          $_SESSION['user_email'] = $user['email'];
+          $_SESSION['user_name'] = $user['FirstName'];
+          $_SESSION['student'] = "true";
+  
+          // Redirect to dashboard.php
+          header("Location: stuPage.php");
+          exit;
+        } else {
+          // Redirect to error.php
+          header("Location: error.php");
+          exit;
+        }
       }
+      }
+     
     }
   } catch(PDOException $e) {
     // Display an error message if unable to connect to the database

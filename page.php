@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="navbar">
         <img src="img/logo.png" alt="imgmissing">
         <h3>San Francisco High School Student's Directory</h3>
-        <p><a href="login.php"><img src="img/logout.png" class="logout">Logout?</a></p>
+        <p><a href="logout.php"><img src="img/logout.png" class="logout">Logout?</a></p>
     </div>
     <div class="banner">
         <h2>Hello <?php echo $_SESSION['user_name'] ?> </h2>
@@ -161,6 +161,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="FCont">
                     <label for="strand">Strand</label>
                     <select name="strand" id="strand" class="selectOption" required>
+                    <option value="JHS">JHS</option>
                         <option value="STEM">STEM</option>
                         <option value="ABM">ABM</option>
                         <option value="GAS">GAS</option>
@@ -168,6 +169,14 @@ if (!isset($_SESSION['user_id'])) {
                     </select>
                     <label for="pNumber">Phone Number</label>
                     <input type="number" name="pNumber" id="pNumber" style="width:200px" maxlength="12" class="aSB_inpbx">
+                </div>
+                <div class="FCont">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" class="aSB_inpbx" required>
+                </div>
+                <div class="FCont">
+                    <label for="password">Password</label>
+                    <input type="text" id="password" name="password" class="aSB_inpbx" required>
                 </div>
                 <div class="FCont">
                     <input type="submit" class="aSB_btn" value="Submit">
@@ -195,9 +204,12 @@ if (!isset($_SESSION['user_id'])) {
                       $strand = $_POST['strand'];
                       $denrolld = date("Y-m-d");
                       $pNumber = $_POST['pNumber'];
+                      $email = $_POST['email'];
+                      $password = $_POST['password'];
+                      $hashed_password = password_hash($password,PASSWORD_DEFAULT);
                       //SQL Code and Execution
-                      $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleIntial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber)
-                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber)";
+                      $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleIntial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber, email, password)
+                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber, :email, :password)";
                       $stmt = $pdo->prepare($sql);
                       $stmt->bindParam(':LRN',$LRN);
                       $stmt->bindParam(':fname',$fname);
@@ -210,6 +222,8 @@ if (!isset($_SESSION['user_id'])) {
                       $stmt->bindParam(':strand',$strand);
                       $stmt->bindParam(':denrolld',$denrolld);
                       $stmt->bindParam(':pNumber',$pNumber);
+                      $stmt->bindParam(':email',$email);
+                      $stmt->bindParam(':password',$hashed_password);
                       if ($stmt->execute()) {
                         
                       } else {

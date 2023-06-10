@@ -35,7 +35,7 @@ if (!isset($_SESSION['user_id'])) {
 	?>x
     <p>You are now logged in.</p>
     <a href="page.php">Go to Directory</a><!--Temp way to go with session? idk-->
-    <a href="login.php">Logout</a>
+    <a href="logout.php">Logout</a>
   </div>
 </body>
 

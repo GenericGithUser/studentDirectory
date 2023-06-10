@@ -95,6 +95,16 @@ input::-webkit-inner-spin-button {
     display: block;
     width: 85px;
 }
+
+.viewProf img{
+    width: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.viewProf h2{
+    margin-bottom: 15px;
+    
+}
 .container .opt{
     background-color: antiquewhite;
     padding: 10px;
