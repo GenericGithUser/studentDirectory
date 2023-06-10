@@ -107,7 +107,7 @@ if (!isset($_SESSION['user_id'])) {
                 // Display an error message if unable to connect to the database
                 echo "Connection failed: " . $e->getMessage();
               }
-             
+              $pdo = null;
              ?>
             </div>
         </div>
@@ -115,7 +115,7 @@ if (!isset($_SESSION['user_id'])) {
         <!--Sorry for long form and a lot of divs-->
         <div class="addStuBox">
             <h2>Add a Student</h2>
-            <form action="insert.php" class="aSB_form" method="POST">
+            <form action="page.php" method="POST" class="aSB_form">
             <div class="FCont">
                     <label for="LRN" style="width: 300px; margin-left: -150px;">Learner's Reference Number</label>
                     <input type="number" id="LRN" name="LRN" class="aSB_inpbx" maxlength="13">
@@ -174,6 +174,55 @@ if (!isset($_SESSION['user_id'])) {
                     <button type="reset" class="aSB_btn aSB_special">Reset Form?</button>
                 </div>
             </form>
+            <?php
+            //Apparently Making it inline makes the inputting process work
+            //This just made the code longer i guess?
+                try {
+                    $pdo = connect();
+                    // Set the PDO error mode to exception
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                  
+                      if($_SERVER['REQUEST_METHOD'] === "POST"){
+                          $LRN = $_POST['LRN'];
+                          $fname = $_POST['fname'];
+                          $mname = substr($_POST['mname'],0,1);
+                          $lname = $_POST['lname'];
+                          $age = $_POST['age'];
+                          $gender = $_POST['gender'];
+                          $Birthday = $_POST['Birthday'];
+                          $GrdLvl = $_POST['GrdLvl'];
+                          $strand = $_POST['strand'];
+                          $denrolld = date("Y-m-d");
+                          $pNumber = $_POST['pNumber'];
+                          
+                          $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleIntial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber)
+                          VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber)";
+                          $stmt = $pdo->prepare($sql);
+                          $stmt->bindParam(':LRN',$LRN);
+                          $stmt->bindParam(':fname',$fname);
+                          $stmt->bindParam(':mname',$mname);
+                          $stmt->bindParam(':lname',$lname);
+                          $stmt->bindParam(':age',$age);
+                          $stmt->bindParam(':gender',$gender);
+                          $stmt->bindParam(':Birthday',$Birthday);
+                          $stmt->bindParam(':grdlvl',$GrdLvl);
+                          $stmt->bindParam(':strand',$strand);
+                          $stmt->bindParam(':denrolld',$denrolld);
+                          $stmt->bindParam(':pNumber',$pNumber);
+                          if ($stmt->execute()) {
+                            echo "Executed";
+                          } else {
+                            $errorInfo = $stmt->errorInfo();
+                            echo "Error: " . $errorInfo[2];
+                          }
+                      }
+                  
+                  }catch (PDOException $e) {
+                    // Display an error message if unable to connect to the database
+                    echo "Connection failed: " . $e->getMessage();
+                  }
+                  
+            ?>
         </div>
     </div>
     <div class="footer">
