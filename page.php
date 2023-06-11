@@ -55,10 +55,15 @@ if (!isset($_SESSION['user_id'])) {
             <div class="searchForm">
                 <form id="searchForm">
                     <input type="text" id="searchQuery" placeholder="Enter student name" required>
-                    <button type="submit">Search</button>
+                    <button type="submit" id="srchbtn" onclick="mockSearch()">Search</button>
                 </form>
             </div>
-            <div id="searchResults"></div>
+            <div class="results">
+                <h2>Here are your results</h2>
+                <div class="resultbx" id="searchResults">
+
+                </div>
+            </div>
         </div>
         <script>
             // Function to handle the form submission using AJAX

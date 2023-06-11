@@ -50,38 +50,72 @@ if (!isset($_SESSION['user_id'])) {
         </div>
         <!--Search Option-->
         <div class="searchAndResults">
-            <div class="searchbox">
-                <form action="">
-                    <input type="text" id="inpbx">
-                    <button id="srchbtn" onclick="mockSearch()" type="button">Search</button>
-                    <h3>Narrow Down Your Search</h3>
-                        <label for="gradeLvl" class="label">Grade Level</label>
-                        <select name="gradeLvl" id="gradeLvl" class="selectOption" >
-                            <option value="none">Select A Grade</option>
-                            <option value="Grd7">Grade 7</option>
-                            <option value="Grd8">Grade 8</option>
-                            <option value="Grd9">Grade 9</option>
-                            <option value="Grd10">Grade 10</option>
-                            <option value="Grd11">Grade 11</option>
-                            <option value="Grd12">Grade 12</option>
-                        </select>
-                    <label for="section" class="label">Section Name</label>
-                    <select name="section" id="section" class="selectOption">
-                        <option value="1">opt1</option>
-                        <option value="2">opt2</option>
-                        <option value="3">opt3</option>
-                    </select>
+        <h2>Search for a specific student</h2>
+            <div class="searchForm">
+                <form id="searchForm">
+                    <input type="text" id="searchQuery" placeholder="Enter student name" required>
+                    <button type="submit" id="srchbtn" onclick="mockSearch()">Search</button>
                 </form>
             </div>
-           <div class="results">
-             <h2>Here's your results</h2>
-             <div class="resultbx">
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             </div>
-           </div>
+            <div class="results">
+                <h2>Here are your results</h2>
+                <div class="resultbx" id="searchResults">
+
+                </div>
+            </div>
         </div>
+        <script>
+            // Function to handle the form submission using AJAX
+            function handleSearchForm(event) {
+                event.preventDefault(); // Prevent form submission from reloading the page
+
+                const query = document.getElementById('searchQuery').value;
+                const searchResultsContainer = document.getElementById('searchResults');
+
+                // Create a new XMLHttpRequest object
+                const xhr = new XMLHttpRequest();
+
+                // Configure the request
+                xhr.open('GET', `search.php?query=${encodeURIComponent(query)}`, true);
+
+                // Set the response type
+                xhr.responseType = 'json';
+
+                // Define the callback function for the AJAX request
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const searchResults = xhr.response;
+
+                        // Clear the search results container
+                        searchResultsContainer.innerHTML = '';
+
+                        if (searchResults.length > 0) {
+                            // Iterate over the search results and create HTML elements
+                            searchResults.forEach(function(result) {
+                                const resultLink = document.createElement('a');
+                                resultLink.href = `mockUserdata.php?LRN=${result.LRN}`;
+                                resultLink.textContent = result.FirstName + ' ' + result.LastName;
+                                const resultDiv = document.createElement('div');
+                                resultDiv.classList.add('result');
+                                resultDiv.appendChild(resultLink);
+                                searchResultsContainer.appendChild(resultDiv);
+                            });
+                        } else {
+                            searchResultsContainer.textContent = 'No results found.';
+                        }
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                };
+
+                // Send the request
+                xhr.send();
+            }
+
+            // Add event listener for the form submission
+            document.getElementById('searchForm').addEventListener('submit', handleSearchForm);
+        </script>
+
         <!--View All students option-->
         <!--I am sure there's a better way to do this but....-->
         <!--Should Probably just moved the connection to the top-->

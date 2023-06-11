@@ -122,18 +122,18 @@ input::-webkit-inner-spin-button {
     margin-top: 15px;
     text-align: center;
 }
-#inpbx{
-    font-size: 1.8em;
+#searchQuery{
+    font-size: 1.4em;
     border: 3px solid gray;
     border-radius: 10px;
     transition: border 0.5s;
     outline: none;
 }
-#inpbx:focus{
+#searchQuery:focus{
     border: 4px solid skyblue;
 }
 #srchbtn{
-    font-size: 1.4em;
+    font-size: 1.1em;
     padding: 6px;
     border-radius: 10px;
     transition: background-color 0.5s;

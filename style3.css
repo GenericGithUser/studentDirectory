@@ -209,6 +209,12 @@ input::-webkit-inner-spin-button {
 .aSB_special{
     background-color: red;
 }
+.selectOption{
+    font-size: 1em;
+    padding: 3px;
+    border-radius: 5px;
+    outline: none;
+}
 .delete-confirm{
     margin: auto;
     width: 30vh;
@@ -224,6 +230,31 @@ input::-webkit-inner-spin-button {
 .delete-confirm::backdrop{
     background-color: rgba(248, 66, 66, 0.212);
 }
+.modGrades{
+    margin: auto;
+    border: 0px white;
+    background-color:burlywood ;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 25px rgba(32, 89, 194, 0.267);
+    padding: 20px;
+}
+.grdChange{
+    margin: auto;
+    border: 0px white;
+    background-color:rgb(253, 193, 102) ;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 25px rgba(32, 89, 194, 0.267);
+    padding: 20px;
+}
+.spec{
+    margin-bottom: 15px;
+    width: 100px;
+}
+
+
+
 /*WARNING VERY VERY VERY SPAGHETTI CODE DOWN BELOW*/
 .box{
     

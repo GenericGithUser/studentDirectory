@@ -39,6 +39,11 @@
     const gradesDis = document.querySelector('.grades');
     const editPop = document.querySelector('.edit');
     const delconfirm = document.querySelector('.delete-confirm');
+    const modGrades = document.querySelector('.modGrades');
+    const firstgrading = document.querySelector('.firstgrading');
+    const secgrading = document.querySelector('.secgrading');
+    const thridgrading = document.querySelector('.thridgrading');
+    const fourthgrading = document.querySelector('.fourthgrading');
     function switcheri(){
         genInfo.classList.remove("active");
         grades.classList.add("active");
@@ -63,3 +68,47 @@
     function cancDel(){
         delconfirm.close();
     }
+    function openModG(){
+        modGrades.showModal();
+    }
+    function cancelMod(){
+        modGrades.close();
+    }
+    function openFirst(){
+        
+        firstgrading.showModal();
+
+    }
+    function closeFirst(){
+        firstgrading.close();
+    }
+    function openSecond(){
+        
+        secgrading.showModal();
+        
+    }
+    function closeSec(){
+        secgrading.close();
+    }
+    function openThird(){
+        
+        thridgrading.showModal();
+        
+    }
+    function closeThird(){
+        
+        thridgrading.close();
+        
+    }
+    
+    function openFourth(){
+        
+        fourthgrading.showModal();
+        
+    }
+    function closeFourth(){
+        
+        fourthgrading.close();
+        
+    }
+    
