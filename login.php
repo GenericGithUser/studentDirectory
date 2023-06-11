@@ -67,7 +67,7 @@ try {
      
     }
   }
-} catch(PDOException $e) {
+ catch(PDOException $e) {
   // Display an error message if unable to connect to the database
   echo "Connection failed: " . $e->getMessage();
 }
