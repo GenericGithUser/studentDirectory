@@ -2,12 +2,14 @@
 session_start();
 // Include Connection Function
 include 'credentials.php';
+include './redirect.php';
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login.php
     header("Location: login.php");
     exit;
   }
+  $LRN = $_GET['LRN'];
   try{
     $pdo = connect();
     // Set the PDO error mode to exception
@@ -41,7 +43,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="navbar">
         <img src="img/logo.png" alt="imgmissing">
         <h3>San Francisco High School Student's Directory</h3>
-        <p><a href="page.php"><img src="img/logout.png" class="logout">Go Back?</a></p>
+        <p><a href="<?php if(isset($_SESSION['student'])){echo'stuPage.php';}else{echo 'page.php';}?>"><img src="img/logout.png" class="logout">Go Back?</a></p>
     </div>
     <div class="content">
         <div class="profile">
@@ -54,6 +56,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
         <div class="contents">
+        <!--Dialog for edit option-->
         <dialog class="edit" >
                  <h2>Edit Details</h2>
                  <form action="" method="POST" class="edit-form">
@@ -102,6 +105,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="FCont">
                     <label for="strand">Strand</label>
                     <select name="strand" id="strand" class="selectOption" required>
+                    <option value="JHS">JHS</option>
                         <option value="STEM">STEM</option>
                         <option value="ABM">ABM</option>
                         <option value="GAS">GAS</option>
@@ -115,14 +119,40 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
                  </form>
                 </dialog>
+                <!--Dialog for confirmation of Deletion-->
+                <dialog class="delete-confirm">
+                    <form action="mockUserdata.php?LRN=<?php echo $LRN ?>" method="post">
+                        <h2>Are you sure you want to delete this student?</h2>
+                        <input type="submit" value="YES" name="submit" class="deleteBtn btn">
+                        <button type="button" onclick="cancDel()" class="modifyBtn btn">NO</button>
+                    </form>            
+                </dialog>
+                <?php
+                //Delete PHP
+                $pdo = connect();
+                    if(isset($_POST['submit'])){
+                        $sqlDelFor = "DELETE FROM tblgrades WHERE LRN= :LRN";
+                        $delstmt = $pdo->prepare($sqlDelFor);
+                        $delstmt->bindParam(':LRN', $LRN);
+                        $delstmt->execute();
+                        $sqlDelStu = "DELETE FROM tblstudents WHERE LRN=:LRN";
+                        $delstmtMain = $pdo->prepare($sqlDelStu);
+                        $delstmtMain->bindParam(':LRN', $LRN);
+                        $delstmtMain->execute();
+                        redirect();
+                        exit;
+                    }
+                ?>
             <div class="genInfo">
                 <div class="head">
                     <h1>General Information</h1>
-                        <div class="opt">
+                        <div class="opt"<?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
                             <div class="modifyBtn btn" onclick="showEdit()">Modify</div>
-                            <div class="deleteBtn btn">DELETE</div>
+                            <div class="deleteBtn btn" onclick="openDel()">DELETE</div>
+                           
                         </div>
                 </div>
+                <!--PHP loop for displaying data-->
                 <?php foreach($select as $result){?>
                 <div class="info">
                     <h2>Learner's Reference Number: <span class="name"><?php echo $result['LRN']; ?></span></h2>
@@ -134,6 +164,7 @@ if (!isset($_SESSION['user_id'])) {
                     <h2>Strand:<span class="name"><?php echo $result['Strand'];?></span></h2>
                     <h2>Date Enrolled:<span class="name"><?php echo date('F d,Y',strtotime($result['DateEnrolled']));?></span></h2>
                     <h2>Phone Number:<span class="name"><?php echo $result['PhoneNumber'];?></span></h2>
+                    <h2>Email:<span class="name"><?php echo $result['email'];?></span></h2>
                     
                 </div>
                 <?php }?>
@@ -142,11 +173,34 @@ if (!isset($_SESSION['user_id'])) {
             <div class="grades">
                 <div class="head">
                     <h1>Student's Grades</h1>
-                    <div class="opt">
+                    <div class="opt" <?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
                             <div class="modifyBtn btn">Modify</div>
                         </div>
                 </div>
                 <!--VERY BIG SPAGHETTI CODE FOR TABLE DOWN BELOW-->
+                <?php
+                //PHP for showing grades
+                 try{
+                    $pdo = connect();
+                    // Set the PDO error mode to exception
+                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $LRN = null; 
+                        if(isset($_GET['LRN'])){
+                            $LRN = $_GET['LRN'];
+                            $viewGrades = "SELECT * FROM tblgrades WHERE LRN= :LRN";
+                            $stmt = $pdo->prepare($viewGrades);
+                            $stmt->bindParam(':LRN', $LRN);
+                            $stmt->execute();
+                            $grSel = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        }
+                        
+                        }catch(PDOException $e) {
+                    // Display an error message if unable to connect to the database
+                    echo "Connection failed: " . $e->getMessage();
+                  }
+                  $pdo = null;
+                ?>
+                <?php foreach ($grSel as $grShow){ ?>
                 <div class="gradeBox">
                     <div class="firstGrd box">
                         <div class="header">First Grading Grade</div>
@@ -154,22 +208,14 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['FirstGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['FirstGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['FirstGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['FirstGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['FirstGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['FirstGradingGradeSub6'] ?></div>
                     </div>
                     <div class="secGrd box">
                         <div class="header">Second Grading Grade</div>
@@ -177,22 +223,14 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['SecondGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['SecondGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['SecondGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['SecondGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['SecondGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['SecondGradingGradeSub6'] ?></div>
                     </div>
                     <div class="thrGrd box">
                         <div class="header">Third Grading Grade</div>
@@ -200,22 +238,14 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['ThirdGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['ThirdGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['ThirdGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['ThirdGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['ThirdGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['ThirdGradingGradeSub6'] ?></div>
                     </div>
                     <div class="fourGrd box">
                         <div class="header">Fourth Grading Grade</div>
@@ -223,52 +253,21 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['ForuthGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['ForuthGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['ForuthGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['ForuthGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['ForuthGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['ForuthGradingGradeSub6'] ?></div>
                     </div>
                 </div>
+                <?php }?>
             </div>
             
         </div>
     </div>
 </body>
-<script>
-        const genInfo = document.querySelector('.opt1');
-        const grades = document.querySelector('.opt2');
-        const genInfoDis = document.querySelector('.genInfo');
-        const gradesDis = document.querySelector('.grades');
-        const editPop = document.querySelector('.edit');
-        function switcheri(){
-            genInfo.classList.remove("active");
-            grades.classList.add("active");
-            genInfoDis.style.display="none";
-            gradesDis.style.display="block";
-        }
-        function switcherii(){
-            genInfo.classList.add("active");
-            grades.classList.remove("active");
-            genInfoDis.style.display="block";
-            gradesDis.style.display="none";
-        }
-        function showEdit(){
-            editPop.showModal();
-        }
-        function closeEdit(){
-            editPop.close();
-        }
-</script>
+<script src="./scriptspage.js"></script>
 </html>

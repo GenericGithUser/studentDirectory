@@ -7,12 +7,13 @@ if (!isset($_SESSION['user_id'])) {
     // Redirect to login.php
     header("Location: login.php");
     exit;
-  }
-  
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,11 +21,12 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="style2.css">
     <title>Document</title>
 </head>
+
 <body>
     <div class="navbar">
         <img src="img/logo.png" alt="imgmissing">
         <h3>San Francisco High School Student's Directory</h3>
-        <p><a href="login.php"><img src="img/logout.png" class="logout">Logout?</a></p>
+        <p><a href="logout.php"><img src="img/logout.png" class="logout">Logout?</a></p>
     </div>
     <div class="banner">
         <h2>Hello <?php echo $_SESSION['user_name'] ?> </h2>
@@ -42,73 +44,101 @@ if (!isset($_SESSION['user_id'])) {
                 <img src="img/eye-icon.svg" alt="missing">
                 <h2>View all students?</h2>
             </div>
-             <div class="addStu opt" onclick="show3()">
+            <div class="addStu opt" onclick="show3()">
                 <img src="img/add-user.png" alt="missing">
                 <h2>Add a Student?</h2>
             </div>
         </div>
         <!--Search Option-->
         <div class="searchAndResults">
-            <div class="searchbox">
-                <form action="">
-                    <input type="text" id="inpbx">
-                    <button id="srchbtn" onclick="mockSearch()" type="button">Search</button>
-                    <h3>Narrow Down Your Search</h3>
-                        <label for="gradeLvl" class="label">Grade Level</label>
-                        <select name="gradeLvl" id="gradeLvl" class="selectOption" >
-                            <option value="none">Select A Grade</option>
-                            <option value="Grd7">Grade 7</option>
-                            <option value="Grd8">Grade 8</option>
-                            <option value="Grd9">Grade 9</option>
-                            <option value="Grd10">Grade 10</option>
-                            <option value="Grd11">Grade 11</option>
-                            <option value="Grd12">Grade 12</option>
-                        </select>
-                    <label for="section" class="label">Section Name</label>
-                    <select name="section" id="section" class="selectOption">
-                        <option value="1">opt1</option>
-                        <option value="2">opt2</option>
-                        <option value="3">opt3</option>
-                    </select>
+            <h2>Search for a specific student</h2>
+            <div class="searchForm">
+                <form id="searchForm">
+                    <input type="text" id="searchQuery" placeholder="Enter student name" required>
+                    <button type="submit">Search</button>
                 </form>
             </div>
-           <div class="results">
-             <h2>Here's your results</h2>
-             <div class="resultbx">
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             <a href="mockUserdata.php"><div class="result">Sample Result</div></a>
-             </div>
-           </div>
+            <div id="searchResults"></div>
         </div>
+        <script>
+            // Function to handle the form submission using AJAX
+            function handleSearchForm(event) {
+                event.preventDefault(); // Prevent form submission from reloading the page
+
+                const query = document.getElementById('searchQuery').value;
+                const searchResultsContainer = document.getElementById('searchResults');
+
+                // Create a new XMLHttpRequest object
+                const xhr = new XMLHttpRequest();
+
+                // Configure the request
+                xhr.open('GET', `search.php?query=${encodeURIComponent(query)}`, true);
+
+                // Set the response type
+                xhr.responseType = 'json';
+
+                // Define the callback function for the AJAX request
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const searchResults = xhr.response;
+
+                        // Clear the search results container
+                        searchResultsContainer.innerHTML = '';
+
+                        if (searchResults.length > 0) {
+                            // Iterate over the search results and create HTML elements
+                            searchResults.forEach(function(result) {
+                                const resultLink = document.createElement('a');
+                                resultLink.href = `mockUserdata.php?LRN=${result.LRN}`;
+                                resultLink.textContent = result.FirstName + ' ' + result.LastName;
+                                const resultDiv = document.createElement('div');
+                                resultDiv.classList.add('result');
+                                resultDiv.appendChild(resultLink);
+                                searchResultsContainer.appendChild(resultDiv);
+                            });
+                        } else {
+                            searchResultsContainer.textContent = 'No results found.';
+                        }
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                };
+
+                // Send the request
+                xhr.send();
+            }
+
+            // Add event listener for the form submission
+            document.getElementById('searchForm').addEventListener('submit', handleSearchForm);
+        </script>
+
         <!--View All students option-->
         <!--I am sure there's a better way to do this but....-->
         <!--Should Probably just moved the connection to the top-->
         <div class="AllRecords">
             <h2>List of all students</h2>
             <div class="list">
-             <?php 
-             try{
-                $pdo = connect();
-                // Set the PDO error mode to exception
-                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                 $viewAllSQL = "SELECT * FROM tblstudents";
-                 $stmt = $pdo->prepare($viewAllSQL);
-                 $stmt->execute();
-                 $viewAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                //show all results
-                 if(count($viewAll)>0){
-                    foreach($viewAll as $result){
-                        echo "<a href='mockUserdata.php?LRN=".$result['LRN']."'><div class='result'>".$result['FirstName']." ".$result['LastName']."</div></a>";
+                <?php
+                try {
+                    $pdo = connect();
+                    // Set the PDO error mode to exception
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $viewAllSQL = "SELECT * FROM tblstudents";
+                    $stmt = $pdo->prepare($viewAllSQL);
+                    $stmt->execute();
+                    $viewAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    //show all results
+                    if (count($viewAll) > 0) {
+                        foreach ($viewAll as $result) {
+                            echo "<a href='mockUserdata.php?LRN=" . $result['LRN'] . "'><div class='result'>" . $result['FirstName'] . " " . $result['LastName'] . "</div></a>";
+                        }
                     }
-                 }
-
-             }catch(PDOException $e) {
-                // Display an error message if unable to connect to the database
-                echo "Connection failed: " . $e->getMessage();
-              }
-              $pdo = null;
-             ?>
+                } catch (PDOException $e) {
+                    // Display an error message if unable to connect to the database
+                    echo "Connection failed: " . $e->getMessage();
+                }
+                $pdo = null;
+                ?>
             </div>
         </div>
         <!--Add a Student Option-->
@@ -116,7 +146,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="addStuBox">
             <h2>Add a Student</h2>
             <form action="page.php" class="aSB_form" method="POST">
-            <div class="FCont">
+                <div class="FCont">
                     <label for="LRN" style="width: 300px; margin-left: -150px;">Learner's Reference Number</label>
                     <input type="number" id="LRN" name="LRN" class="aSB_inpbx" maxlength="13">
                 </div>
@@ -149,18 +179,19 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="FCont">
                     <label for="GrdLvl" style="width:260px">Grade to be enrolled</label>
                     <select name="GrdLvl" id="GrdLvl" class="selectOption" required>
-                            <option value="none">Select A Grade</option>
-                            <option value="7">Grade 7</option>
-                            <option value="8">Grade 8</option>
-                            <option value="9">Grade 9</option>
-                            <option value="10">Grade 10</option>
-                            <option value="11">Grade 11</option>
-                            <option value="12">Grade 12</option>
-                        </select>
+                        <option value="none">Select A Grade</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                        <option value="10">Grade 10</option>
+                        <option value="11">Grade 11</option>
+                        <option value="12">Grade 12</option>
+                    </select>
                 </div>
                 <div class="FCont">
                     <label for="strand">Strand</label>
                     <select name="strand" id="strand" class="selectOption" required>
+                        <option value="JHS">JHS</option>
                         <option value="STEM">STEM</option>
                         <option value="ABM">ABM</option>
                         <option value="GAS">GAS</option>
@@ -168,6 +199,14 @@ if (!isset($_SESSION['user_id'])) {
                     </select>
                     <label for="pNumber">Phone Number</label>
                     <input type="number" name="pNumber" id="pNumber" style="width:200px" maxlength="12" class="aSB_inpbx">
+                </div>
+                <div class="FCont">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" class="aSB_inpbx" required>
+                </div>
+                <div class="FCont">
+                    <label for="password">Password</label>
+                    <input type="text" id="password" name="password" class="aSB_inpbx" required>
                 </div>
                 <div class="FCont">
                     <input type="submit" class="aSB_btn" value="Submit">
@@ -181,49 +220,68 @@ if (!isset($_SESSION['user_id'])) {
                 $pdo = connect();
                 // Set the PDO error mode to exception
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                
-                  if($_SERVER['REQUEST_METHOD'] === "POST"){
+
+                if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     //get the varibles
-                      $LRN = $_POST['LRN'];
-                      $fname = $_POST['fname'];
-                      $mname = substr($_POST['mname'],0,1);
-                      $lname = $_POST['lname'];
-                      $age = $_POST['age'];
-                      $gender = $_POST['gender'];
-                      $Birthday = $_POST['Birthday'];
-                      $GrdLvl = $_POST['GrdLvl'];
-                      $strand = $_POST['strand'];
-                      $denrolld = date("Y-m-d");
-                      $pNumber = $_POST['pNumber'];
-                      //SQL Code and Execution
-                      $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleIntial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber)
-                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber)";
-                      $stmt = $pdo->prepare($sql);
-                      $stmt->bindParam(':LRN',$LRN);
-                      $stmt->bindParam(':fname',$fname);
-                      $stmt->bindParam(':mname',$mname);
-                      $stmt->bindParam(':lname',$lname);
-                      $stmt->bindParam(':age',$age);
-                      $stmt->bindParam(':gender',$gender);
-                      $stmt->bindParam(':Birthday',$Birthday);
-                      $stmt->bindParam(':grdlvl',$GrdLvl);
-                      $stmt->bindParam(':strand',$strand);
-                      $stmt->bindParam(':denrolld',$denrolld);
-                      $stmt->bindParam(':pNumber',$pNumber);
-                      if ($stmt->execute()) {
-                        
-                      } else {
+                    $LRN = $_POST['LRN'];
+                    $fname = $_POST['fname'];
+                    $mname = substr($_POST['mname'], 0, 1);
+                    $lname = $_POST['lname'];
+                    $age = $_POST['age'];
+                    $gender = $_POST['gender'];
+                    $Birthday = $_POST['Birthday'];
+                    $GrdLvl = $_POST['GrdLvl'];
+                    $strand = $_POST['strand'];
+                    $denrolld = date("Y-m-d");
+                    $pNumber = $_POST['pNumber'];
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    //SQL Code and Execution
+                    $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleIntial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber, email, password)
+                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber, :email, :password)";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(':LRN', $LRN);
+                    $stmt->bindParam(':fname', $fname);
+                    $stmt->bindParam(':mname', $mname);
+                    $stmt->bindParam(':lname', $lname);
+                    $stmt->bindParam(':age', $age);
+                    $stmt->bindParam(':gender', $gender);
+                    $stmt->bindParam(':Birthday', $Birthday);
+                    $stmt->bindParam(':grdlvl', $GrdLvl);
+                    $stmt->bindParam(':strand', $strand);
+                    $stmt->bindParam(':denrolld', $denrolld);
+                    $stmt->bindParam(':pNumber', $pNumber);
+                    $stmt->bindParam(':email', $email);
+                    $stmt->bindParam(':password', $hashed_password);
+                    if ($stmt->execute()) {
+                    } else {
                         $errorInfo = $stmt->errorInfo();
                         echo "Error: " . $errorInfo[2];
+
                       }
+                      $sqlAddForeign = "INSERT INTO  tblgrades  ( ID ,  LRN ,  FirstGradingGradeSub1 ,  FirstGradingGradeSub2 ,  FirstGradingGradeSub3 , 
+                       FirstGradingGradeSub4 ,  FirstGradingGradeSub5 ,  FirstGradingGradeSub6 ,  SecondGradingGradeSub1 ,  SecondGradingGradeSub2 , 
+                        SecondGradingGradeSub3 ,  SecondGradingGradeSub4 ,  SecondGradingGradeSub5 ,  SecondGradingGradeSub6 ,  ThirdGradingGradeSub1 , 
+                         ThirdGradingGradeSub2 ,  ThirdGradingGradeSub3 ,  ThirdGradingGradeSub4 ,  ThirdGradingGradeSub5 ,  ThirdGradingGradeSub6 ,  ForuthGradingGradeSub1 , 
+                          ForuthGradingGradeSub2 ,  ForuthGradingGradeSub3 ,  ForuthGradingGradeSub4 ,  ForuthGradingGradeSub5 ,  ForuthGradingGradeSub6 )
+                           VALUES (NULL, :LRN, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);";
+                        $stmt = $pdo->prepare($sqlAddForeign);
+                        $stmt->bindParam(':LRN', $LRN);
+                        if ($stmt->execute()) {
+                        
+                        } else {
+                          $errorInfo = $stmt->errorInfo();
+                          echo "Error: " . $errorInfo[2];
+                        }
                   }
               
-              }catch (PDOException $e) {
+            } catch (PDOException $e) {
+
                 // Display an error message if unable to connect to the database
                 echo "Connection failed: " . $e->getMessage();
-              }
-              $pdo = null; 
-      
+            }
+            $pdo = null
             ?>
         </div>
     </div>
@@ -233,39 +291,7 @@ if (!isset($_SESSION['user_id'])) {
         <p><a href="">About and Contact Us</a></p>
     </div>
 </body>
-<!--Should Probably Migrate this to a different file-->
-<script>
-    //Function for Buttons
-    function show1(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "block";
-        AR.style.display = "none";
-        ANS.style.display = "none"
-    }
-    function show2(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "none";
-        AR.style.display = "block";
-        ANS.style.display = "none"
-    }
-    function show3(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "none";
-        AR.style.display = "none";
-        ANS.style.display = "block"
-    }
-    //End of Function For Buttons
-    //Function for mock search button
-    function mockSearch(){
-        const resultBox = document.querySelector('.results');
-        resultBox.style.display = "block";
-    }
-  
-</script>
+
+<script src="./scriptspage.js"></script>
+
 </html>
