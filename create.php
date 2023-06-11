@@ -29,7 +29,7 @@ try {
     $stmt->execute();
 
     // Redirect to index.php with success message
-    header("Location: index.php?success=true");
+    header("Location: login.php?success=true");
     exit;
   }
 } catch(PDOException $e) {
