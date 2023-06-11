@@ -230,6 +230,20 @@ if (!isset($_SESSION['user_id'])) {
                         $errorInfo = $stmt->errorInfo();
                         echo "Error: " . $errorInfo[2];
                       }
+                      $sqlAddForeign = "INSERT INTO  tblgrades  ( ID ,  LRN ,  FirstGradingGradeSub1 ,  FirstGradingGradeSub2 ,  FirstGradingGradeSub3 , 
+                       FirstGradingGradeSub4 ,  FirstGradingGradeSub5 ,  FirstGradingGradeSub6 ,  SecondGradingGradeSub1 ,  SecondGradingGradeSub2 , 
+                        SecondGradingGradeSub3 ,  SecondGradingGradeSub4 ,  SecondGradingGradeSub5 ,  SecondGradingGradeSub6 ,  ThirdGradingGradeSub1 , 
+                         ThirdGradingGradeSub2 ,  ThirdGradingGradeSub3 ,  ThirdGradingGradeSub4 ,  ThirdGradingGradeSub5 ,  ThirdGradingGradeSub6 ,  ForuthGradingGradeSub1 , 
+                          ForuthGradingGradeSub2 ,  ForuthGradingGradeSub3 ,  ForuthGradingGradeSub4 ,  ForuthGradingGradeSub5 ,  ForuthGradingGradeSub6 )
+                           VALUES (NULL, :LRN, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);";
+                        $stmt = $pdo->prepare($sqlAddForeign);
+                        $stmt->bindParam(':LRN', $LRN);
+                        if ($stmt->execute()) {
+                        
+                        } else {
+                          $errorInfo = $stmt->errorInfo();
+                          echo "Error: " . $errorInfo[2];
+                        }
                   }
               
               }catch (PDOException $e) {
@@ -247,39 +261,5 @@ if (!isset($_SESSION['user_id'])) {
         <p><a href="">About and Contact Us</a></p>
     </div>
 </body>
-<!--Should Probably Migrate this to a different file-->
-<script>
-    //Function for Buttons
-    function show1(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "block";
-        AR.style.display = "none";
-        ANS.style.display = "none"
-    }
-    function show2(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "none";
-        AR.style.display = "block";
-        ANS.style.display = "none"
-    }
-    function show3(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "none";
-        AR.style.display = "none";
-        ANS.style.display = "block"
-    }
-    //End of Function For Buttons
-    //Function for mock search button
-    function mockSearch(){
-        const resultBox = document.querySelector('.results');
-        resultBox.style.display = "block";
-    }
-  
-</script>
+<script src="./scriptspage.js"></script>
 </html>

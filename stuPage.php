@@ -121,39 +121,5 @@ if (!isset($_SESSION['user_id'])) {
         <p><a href="">About and Contact Us</a></p>
     </div>
 </body>
-<!--Should Probably Migrate this to a different file-->
-<script>
-    //Function for Buttons
-    function show1(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "block";
-        AR.style.display = "none";
-        ANS.style.display = "none"
-    }
-    function show2(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "none";
-        AR.style.display = "block";
-        ANS.style.display = "none"
-    }
-    function show3(){
-        const SAR = document.querySelector('.searchAndResults');
-        const AR = document.querySelector('.AllRecords');
-        const ANS = document.querySelector('.addStuBox');
-        SAR.style.display = "none";
-        AR.style.display = "none";
-        ANS.style.display = "block"
-    }
-    //End of Function For Buttons
-    //Function for mock search button
-    function mockSearch(){
-        const resultBox = document.querySelector('.results');
-        resultBox.style.display = "block";
-    }
-  
-</script>
+<script src="./scriptspage.js"></script>
 </html>
