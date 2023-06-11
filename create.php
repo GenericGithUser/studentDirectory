@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Include Server Connection Function
 include 'credentials.php';
 
@@ -10,26 +12,53 @@ try {
 
   // Check if the form has been submitted
   if(isset($_POST['submit'])) {
-    // Sanitize data from form
+    // Retrieve data from form
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-    $name = htmlspecialchars($_POST["name"], ENT_QUOTES);
-    $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
-    $password = htmlspecialchars($_POST["password"], ENT_QUOTES);
-
-
-    // Hash the password before storing it in the database
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Execute SQL query to insert data into database
-    $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+    // Execute SQL query to retrieve data from the first table
+    $sql = "SELECT * FROM users2 WHERE email = :email";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':name', $name);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':password', $hashed_password);
     $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Redirect to index.php with success message
-    header("Location: login.php?success=true");
+    // Check if user exists in the first table
+    if($user) {
+      if ($user && $password === $user['password']) {
+        // Store user information in session
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_email'] = $user['email'];
+        $_SESSION['user_name'] = $user['name'];
+
+        // Redirect to dashboard.php
+        header("Location: dashboard.php");
+        exit;
+      }
+    } else {
+      // Execute SQL query to retrieve data from the second table
+      $sql = "SELECT * FROM tblstudents WHERE email = :email";
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindParam(':email', $email);
+      $stmt->execute();
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      // Check if user exists in the second table
+      if ($user && $password === $user['LRN']) {
+        // Store user information in session
+        $_SESSION['user_id'] = $user['LRN'];
+        $_SESSION['user_email'] = $user['email'];
+        $_SESSION['user_name'] = $user['FirstName'];
+        $_SESSION['student'] = "true";
+
+        // Redirect to stuPage.php
+        header("Location: stuPage.php");
+        exit;
+      }
+    }
+
+    // Redirect to error.php if login fails
+    header("Location: error.php");
     exit;
   }
 } catch(PDOException $e) {
@@ -40,3 +69,30 @@ try {
 // Close the database connection
 $pdo = null;
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form action="login.php" method="POST">
+    <h1>SFHS Student Directory</h1>
+    <div class="internalFormWrapper">
+      <p>
+        <label for="email"></label>
+        <input type="email" id="email" name="email" required placeholder="Email">
+      </p>
+      <p>
+        <label for="password"></label>
+        <input type="password" id="password" name="password" required placeholder="Password">
+      </p>
+    </div>
+    <p class="chooseButtonWrapper">
+      <button type="submit" name="submit">Login</button>
+      <a href="register.php"><button type="button">Register</button></a>
+    </p>
+  </form>
+</body>
+</html>
