@@ -2,12 +2,14 @@
 session_start();
 // Include Connection Function
 include 'credentials.php';
+include './redirect.php';
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login.php
     header("Location: login.php");
     exit;
   }
+  $LRN = $_GET['LRN'];
   try{
     $pdo = connect();
     // Set the PDO error mode to exception
@@ -54,7 +56,8 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
         <div class="contents">
-        <dialog class="edit" >
+        <!--Dialog for edit option-->
+        <dialog class="edit">
                  <h2>Edit Details</h2>
                  <form action="" method="POST" class="edit-form">
                     <div class="FCont">
@@ -112,18 +115,45 @@ if (!isset($_SESSION['user_id'])) {
                     <input type="number" name="pNumber" id="pNumber" style="width:200px" maxlength="12" class="aSB_inpbx">
                 </div>
                 <div class="FCont">
-                    <button onclick="closeEdit()" class="aSB_btn">Submit</button>
+                    <input type="submit" class="aSB_btn" value="Submit" name="submit">
+                    <button type="button" onclick="closeEdit()" class="aSB_btn">Cancel</button>
                 </div>
                  </form>
                 </dialog>
+                <!--Dialog for confirmation of Deletion-->
+                <dialog class="delete-confirm">
+                    <form action="mockUserdata.php?LRN=<?php echo $LRN ?>" method="post">
+                        <h2>Are you sure you want to delete this student?</h2>
+                        <input type="submit" value="YES" name="submit" class="deleteBtn btn">
+                        <button type="button" onclick="cancDel()" class="modifyBtn btn">NO</button>
+                    </form>            
+                </dialog>
+                <?php
+                //Delete PHP
+                $pdo = connect();
+                    if(isset($_POST['submit'])){
+                        $sqlDelFor = "DELETE FROM tblgrades WHERE LRN= :LRN";
+                        $delstmt = $pdo->prepare($sqlDelFor);
+                        $delstmt->bindParam(':LRN', $LRN);
+                        $delstmt->execute();
+                        $sqlDelStu = "DELETE FROM tblstudents WHERE LRN=:LRN";
+                        $delstmtMain = $pdo->prepare($sqlDelStu);
+                        $delstmtMain->bindParam(':LRN', $LRN);
+                        $delstmtMain->execute();
+                        redirect();
+                        exit;
+                    }
+                ?>
             <div class="genInfo">
                 <div class="head">
                     <h1>General Information</h1>
                         <div class="opt"<?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
                             <div class="modifyBtn btn" onclick="showEdit()">Modify</div>
-                            <div class="deleteBtn btn">DELETE</div>
+                            <div class="deleteBtn btn" onclick="openDel()">DELETE</div>
+                           
                         </div>
                 </div>
+                <!--PHP loop for displaying data-->
                 <?php foreach($select as $result){?>
                 <div class="info">
                     <h2>Learner's Reference Number: <span class="name"><?php echo $result['LRN']; ?></span></h2>
@@ -142,13 +172,228 @@ if (!isset($_SESSION['user_id'])) {
                 
             </div>
             <div class="grades">
+                <!--Dialogs for modifying grades-->
+                <dialog class="modGrades">    
+                     <h2>Which grading would you like to modify?</h2>
+                     <button type="button" onclick="openFirst()" class="btn">First Grading</button>
+                     <button type="button" onclick="openSecond()" class="btn">Second Grading</button>               
+                     <button type="button" onclick="openThird()" class="btn">Third Grading</button>
+                     <button type="button" onclick="openFourth()" class="btn">Fourth Grading</button><br>
+                     <button type="button" onclick="cancelMod()" class="btn">Cancel</button>
+                        <dialog class="firstgrading grdChange">
+                        <form action="mockUserdata.php?LRN=<?php echo $LRN; ?>" method="POST">
+                            <label for="FirstGradingGradeSub1">Subject 1</label>
+                            <input type="text" name="FirstGradingGradeSub1" id="FirstGradingGradeSub1" class="aSB_inpbx spec"><br>
+                            <label for="FirstGradingGradeSub2">Subject 2</label>
+                            <input type="text" name="FirstGradingGradeSub2" id="FirstGradingGradeSub2" class="aSB_inpbx spec"><br>
+                            <label for="FirstGradingGradeSub3">Subject 3</label>
+                            <input type="text" name="FirstGradingGradeSub3" id="FirstGradingGradeSub3" class="aSB_inpbx spec"><br>
+                            <label for="FirstGradingGradeSub4">Subject 4</label>
+                            <input type="text" name="FirstGradingGradeSub4" id="FirstGradingGradeSub4" class="aSB_inpbx spec"><br>
+                            <label for="FirstGradingGradeSub5">Subject 5</label>
+                            <input type="text" name="FirstGradingGradeSub5" id="FirstGradingGradeSub5" class="aSB_inpbx spec"><br>
+                            <label for="FirstGradingGradeSub6">Subject 6</label>
+                            <input type="text" name="FirstGradingGradeSub6" id="FirstGradingGradeSub6" class="aSB_inpbx spec"><br>
+                            <input type="submit" value="Change" name="change" class="btn">
+                            <button type="button" onclick="closeFirst()" class="btn">Cancel</button>
+                            <input type="hidden" value="First" name="checker">
+                            </form>
+                        </dialog>
+                        <dialog class="secgrading grdChange">
+                        <form action="mockUserdata.php?LRN=<?php echo $LRN; ?>" method="POST">
+                            <label for="SecondGradingGradeSub1">Subject 1</label>
+                            <input type="text" name="SecondGradingGradeSub1" id="SecondGradingGradeSub1" class="aSB_inpbx spec"><br>
+                            <label for="SecondGradingGradeSub2">Subject 2</label>
+                            <input type="text" name="SecondGradingGradeSub2" id="SecondGradingGradeSub2" class="aSB_inpbx spec"><br>
+                            <label for="SecondGradingGradeSub3">Subject 3</label>
+                            <input type="text" name="SecondGradingGradeSub3" id="SecondGradingGradeSub3" class="aSB_inpbx spec"><br>
+                            <label for="SecondGradingGradeSub4">Subject 4</label>
+                            <input type="text" name="SecondGradingGradeSub4" id="SecondGradingGradeSub4" class="aSB_inpbx spec"><br>
+                            <label for="SecondGradingGradeSub5">Subject 5</label>
+                            <input type="text" name="SecondGradingGradeSub5" id="SecondGradingGradeSub5" class="aSB_inpbx spec"><br>
+                            <label for="SecondGradingGradeSub6">Subject 6</label>
+                            <input type="text" name="SecondGradingGradeSub6" id="SecondGradingGradeSub6" class="aSB_inpbx spec"><br>
+                            <input type="submit" value="Change" name="change" class="btn">
+                            <button type="button" onclick="closeSec()" class="btn">Cancel</button>
+                            <input type="hidden" value="Second" name="checker">
+                            </form>
+                        </dialog>
+                        <dialog class="thridgrading grdChange">
+                        <form action="mockUserdata.php?LRN=<?php echo $LRN; ?>" method="POST">
+                            <label for="ThridGradingGradeSub1">Subject 1</label>
+                            <input type="text" name="ThirdGradingGradeSub1" id="ThirdGradingGradeSub1" class="aSB_inpbx spec"><br>
+                            <label for="ThridGradingGradeSub2">Subject 2</label>
+                            <input type="text" name="ThirdGradingGradeSub2" id="ThirdGradingGradeSub2" class="aSB_inpbx spec"><br>
+                            <label for="ThridGradingGradeSub3">Subject 3</label>
+                            <input type="text" name="ThirdGradingGradeSub3" id="ThirdGradingGradeSub3" class="aSB_inpbx spec"><br>
+                            <label for="ThridGradingGradeSub4">Subject 4</label>
+                            <input type="text" name="ThirdGradingGradeSub4" id="ThirdGradingGradeSub4" class="aSB_inpbx spec"><br>
+                            <label for="ThridGradingGradeSub5">Subject 5</label>
+                            <input type="text" name="ThirdGradingGradeSub5" id="ThirdGradingGradeSub5" class="aSB_inpbx spec"><br>
+                            <label for="ThridGradingGradeSub6">Subject 6</label>
+                            <input type="text" name="ThirdGradingGradeSub6" id="ThirdGradingGradeSub6" class="aSB_inpbx spec"><br>
+                            <input type="submit" value="Change" name="change" class="btn">
+                            <button type="button" onclick="closeThird()" class="btn">Cancel</button>
+                            <input type="hidden" value="Thrid" name="checker">
+                            </form>
+                        </dialog>
+                        <dialog class="fourthgrading grdChange">
+                        <form action="mockUserdata.php?LRN=<?php echo $LRN; ?>" method="POST">
+                            <label for="ForuthGradingGradeSub1">Subject 1</label>
+                            <input type="text" name="ForuthGradingGradeSub1" id="ForuthGradomgGradeSub1" class="aSB_inpbx spec"><br>
+                            <label for="ForuthGradingGradeSub2">Subject 2</label>
+                            <input type="text" name="ForuthGradingGradeSub2" id="ForuthGradomgGradeSub2" class="aSB_inpbx spec"><br>
+                            <label for="ForuthGradingGradeSub3">Subject 3</label>
+                            <input type="text" name="ForuthGradingGradeSub3" id="ForuthGradomgGradeSub3" class="aSB_inpbx spec"><br>
+                            <label for="ForuthGradingGradeSub4">Subject 4</label>
+                            <input type="text" name="ForuthGradingGradeSub4" id="ForuthGradomgGradeSub4" class="aSB_inpbx spec"><br>
+                            <label for="ForuthGradingGradeSub5">Subject 5</label>
+                            <input type="text" name="ForuthGradingGradeSub5" id="ForuthGradomgGradeSub5" class="aSB_inpbx spec"><br>
+                            <label for="ForuthGradingGradeSub6">Subject 6</label>
+                            <input type="text" name="ForuthGradingGradeSub6" id="ForuthGradomgGradeSub6" class="aSB_inpbx spec"><br>
+                            <input type="submit" value="Change" name="change" class="btn">
+                            <button type="button" onclick="closeFourth()" class="btn">Cancel</button>
+                            <input type="hidden" value="Fourth" name="checker">
+                            </form>
+                        </dialog>
+                </dialog>
+                <?php 
+                //UPDATE GRADES
+                try{
+                    $pdo = connect();
+                    if(isset($_POST['change'])){
+                        $check = $_POST['checker'];
+                        if($check == "First"){
+                            $FirstGradingGradeSub1 = $_POST['FirstGradingGradeSub1'];
+                            $FirstGradingGradeSub2 = $_POST['FirstGradingGradeSub2'];
+                            $FirstGradingGradeSub3 = $_POST['FirstGradingGradeSub3'];
+                            $FirstGradingGradeSub4 = $_POST['FirstGradingGradeSub4'];
+                            $FirstGradingGradeSub5 = $_POST['FirstGradingGradeSub5'];
+                            $FirstGradingGradeSub6 = $_POST['FirstGradingGradeSub6'];
+                            $sqlUp1= "UPDATE tblgrades SET FirstGradingGradeSub1 = :FirstGradingGradeSub1, 
+                            FirstGradingGradeSub2 =:FirstGradingGradeSub2, 
+                            FirstGradingGradeSub3 =:FirstGradingGradeSub3, 
+                            FirstGradingGradeSub4 =:FirstGradingGradeSub4, 
+                            FirstGradingGradeSub5 =:FirstGradingGradeSub5, 
+                            FirstGradingGradeSub6 =:FirstGradingGradeSub6 WHERE LRN=:LRN";
+                            $stmtupgr= $pdo->prepare($sqlUp1);
+                            $stmtupgr->bindParam(':FirstGradingGradeSub1', $FirstGradingGradeSub1);
+                            $stmtupgr->bindParam(':FirstGradingGradeSub2', $FirstGradingGradeSub2);
+                            $stmtupgr->bindParam(':FirstGradingGradeSub3', $FirstGradingGradeSub3);
+                            $stmtupgr->bindParam(':FirstGradingGradeSub4', $FirstGradingGradeSub4);
+                            $stmtupgr->bindParam(':FirstGradingGradeSub5', $FirstGradingGradeSub5);
+                            $stmtupgr->bindParam(':FirstGradingGradeSub6', $FirstGradingGradeSub6);
+                            $stmtupgr->bindParam(':LRN', $LRN);
+                            $stmtupgr->execute();
+                        }
+                        elseif($check == "Second"){
+                            $SecondGradingGradeSub1 = $_POST['SecondGradingGradeSub1'];
+                            $SecondGradingGradeSub2 = $_POST['SecondGradingGradeSub2'];
+                            $SecondGradingGradeSub3 = $_POST['SecondGradingGradeSub3'];
+                            $SecondGradingGradeSub4 = $_POST['SecondGradingGradeSub4'];
+                            $SecondGradingGradeSub5 = $_POST['SecondGradingGradeSub5'];
+                            $SecondGradingGradeSub6 = $_POST['SecondGradingGradeSub6'];
+                            $sqlUp1= "UPDATE tblgrades SET SecondGradingGradeSub1 = :SecondGradingGradeSub1, 
+                            SecondGradingGradeSub2 =:SecondGradingGradeSub2, 
+                            SecondGradingGradeSub3 =:SecondGradingGradeSub3, 
+                            SecondGradingGradeSub4 =:SecondGradingGradeSub4, 
+                            SecondGradingGradeSub5 =:SecondGradingGradeSub5, 
+                            SecondGradingGradeSub6 =:SecondGradingGradeSub6 WHERE LRN=:LRN";
+                            $stmtupgr= $pdo->prepare($sqlUp1);
+                            $stmtupgr->bindParam(':SecondGradingGradeSub1', $SecondGradingGradeSub1);
+                            $stmtupgr->bindParam(':SecondGradingGradeSub2', $SecondGradingGradeSub2);
+                            $stmtupgr->bindParam(':SecondGradingGradeSub3', $SecondGradingGradeSub3);
+                            $stmtupgr->bindParam(':SecondGradingGradeSub4', $SecondGradingGradeSub4);
+                            $stmtupgr->bindParam(':SecondGradingGradeSub5', $SecondGradingGradeSub5);
+                            $stmtupgr->bindParam(':SecondGradingGradeSub6', $SecondGradingGradeSub6);
+                            $stmtupgr->bindParam(':LRN', $LRN);
+                            $stmtupgr->execute();
+                        }
+                        elseif($check == "Third"){
+                            $ThirdGradingGradeSub1 = $_POST['ThirdGradingGradeSub1'];
+                            $ThirdGradingGradeSub2 = $_POST['ThirdGradingGradeSub2'];
+                            $ThirdGradingGradeSub3 = $_POST['ThirdGradingGradeSub3'];
+                            $ThirdGradingGradeSub4 = $_POST['ThirdGradingGradeSub4'];
+                            $ThirdGradingGradeSub5 = $_POST['ThirdGradingGradeSub5'];
+                            $ThirdGradingGradeSub6 = $_POST['ThirdGradingGradeSub6'];
+                            $sqlUp1= "UPDATE tblgrades SET ThirdGradingGradeSub1 = :ThirdGradingGradeSub1, 
+                            ThirdGradingGradeSub2 =:ThirdGradingGradeSub2, 
+                            ThirdGradingGradeSub3 =:ThirdGradingGradeSub3, 
+                            ThirdGradingGradeSub4 =:ThirdGradingGradeSub4, 
+                            ThirdGradingGradeSub5 =:ThirdGradingGradeSub5, 
+                            ThirdGradingGradeSub6 =:ThirdGradingGradeSub6 WHERE LRN=:LRN";
+                            $stmtupgr= $pdo->prepare($sqlUp1);
+                            $stmtupgr->bindParam(':ThirdGradingGradeSub1', $ThirdGradingGradeSub1);
+                            $stmtupgr->bindParam(':ThirdGradingGradeSub2', $ThirdGradingGradeSub2);
+                            $stmtupgr->bindParam(':ThirdGradingGradeSub3', $ThirdGradingGradeSub3);
+                            $stmtupgr->bindParam(':ThirdGradingGradeSub4', $ThirdGradingGradeSub4);
+                            $stmtupgr->bindParam(':ThirdGradingGradeSub5', $ThirdGradingGradeSub5);
+                            $stmtupgr->bindParam(':ThirdGradingGradeSub6', $ThirdGradingGradeSub6);
+                            $stmtupgr->bindParam(':LRN', $LRN);
+                            $stmtupgr->execute(); 
+                        }
+                        elseif($check == "Fourth"){
+                            $ForuthGradingGradeSub1 = $_POST['ForuthGradingGradeSub1'];
+                            $ForuthGradingGradeSub2 = $_POST['ForuthGradingGradeSub2'];
+                            $ForuthGradingGradeSub3 = $_POST['ForuthGradingGradeSub3'];
+                            $ForuthGradingGradeSub4 = $_POST['ForuthGradingGradeSub4'];
+                            $ForuthGradingGradeSub5 = $_POST['ForuthGradingGradeSub5'];
+                            $ForuthGradingGradeSub6 = $_POST['ForuthGradingGradeSub6'];
+                            $sqlUp1= "UPDATE tblgrades SET ForuthGradingGradeSub1 = :ForuthGradingGradeSub1, 
+                            ForuthGradingGradeSub2 =:ForuthGradingGradeSub2, 
+                            ForuthGradingGradeSub3 =:ForuthGradingGradeSub3, 
+                            ForuthGradingGradeSub4 =:ForuthGradingGradeSub4, 
+                            ForuthGradingGradeSub5 =:ForuthGradingGradeSub5, 
+                            ForuthGradingGradeSub6 =:ForuthGradingGradeSub6 WHERE LRN=:LRN";
+                            $stmtupgr= $pdo->prepare($sqlUp1);
+                            $stmtupgr->bindParam(':ForuthGradingGradeSub1', $ForuthGradingGradeSub1);
+                            $stmtupgr->bindParam(':ForuthGradingGradeSub2', $ForuthGradingGradeSub2);
+                            $stmtupgr->bindParam(':ForuthGradingGradeSub3', $ForuthGradingGradeSub3);
+                            $stmtupgr->bindParam(':ForuthGradingGradeSub4', $ForuthGradingGradeSub4);
+                            $stmtupgr->bindParam(':ForuthGradingGradeSub5', $ForuthGradingGradeSub5);
+                            $stmtupgr->bindParam(':ForuthGradingGradeSub6', $ForuthGradingGradeSub6);
+                            $stmtupgr->bindParam(':LRN', $LRN);
+                            $stmtupgr->execute();
+                        }
+                    }
+
+                }catch(PDOException $e) {
+                    // Display an error message if unable to connect to the database
+                    echo "Connection failed: " . $e->getMessage();
+                  }
+                  $pdo = null;
+                
+                ?>
                 <div class="head">
                     <h1>Student's Grades</h1>
                     <div class="opt" <?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
-                            <div class="modifyBtn btn">Modify</div>
+                            <div class="modifyBtn btn" onclick="openModG()">Modify</div>
                         </div>
                 </div>
                 <!--VERY BIG SPAGHETTI CODE FOR TABLE DOWN BELOW-->
+                <?php
+                //PHP for showing grades
+                 try{
+                    $pdo = connect();
+                    // Set the PDO error mode to exception
+                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $LRN = null; 
+                        if(isset($_GET['LRN'])){
+                            $LRN = $_GET['LRN'];
+                            $viewGrades = "SELECT * FROM tblgrades WHERE LRN= :LRN";
+                            $stmt = $pdo->prepare($viewGrades);
+                            $stmt->bindParam(':LRN', $LRN);
+                            $stmt->execute();
+                            $grSel = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        }
+                        
+                        }catch(PDOException $e) {
+                    // Display an error message if unable to connect to the database
+                    echo "Connection failed: " . $e->getMessage();
+                  }
+                  $pdo = null;
+                ?>
+                <?php foreach ($grSel as $grShow){ ?>
                 <div class="gradeBox">
                     <div class="firstGrd box">
                         <div class="header">First Grading Grade</div>
@@ -156,22 +401,14 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['FirstGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['FirstGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['FirstGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['FirstGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['FirstGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['FirstGradingGradeSub6'] ?></div>
                     </div>
                     <div class="secGrd box">
                         <div class="header">Second Grading Grade</div>
@@ -179,22 +416,14 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['SecondGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['SecondGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['SecondGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['SecondGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['SecondGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['SecondGradingGradeSub6'] ?></div>
                     </div>
                     <div class="thrGrd box">
                         <div class="header">Third Grading Grade</div>
@@ -202,22 +431,14 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['ThirdGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['ThirdGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['ThirdGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['ThirdGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['ThirdGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['ThirdGradingGradeSub6'] ?></div>
                     </div>
                     <div class="fourGrd box">
                         <div class="header">Fourth Grading Grade</div>
@@ -225,52 +446,21 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="sub2">Second</div>
                         <div class="sub3">Thrid</div>
                         <div class="sub4">Fourth</div>
-                        <div class="gr1st">a</div>
-                        <div class="gr1st-2">a</div>
-                        <div class="gr1st-3">a</div>
-                        <div class="gr1st-4">a</div>
-                        <div class="gr2nd">a</div>
-                        <div class="gr2nd-2">a</div>
-                        <div class="gr2nd-3">a</div>
-                        <div class="gr2nd-4">a</div>
-                        <div class="gr3rd">a</div>
-                        <div class="gr3rd-2">a</div>
-                        <div class="gr3rd-3">a</div>
-                        <div class="gr3rd-4">a</div>
-                        <div class="gr4th">a</div>
-                        <div class="gr4th-2">a</div>
-                        <div class="gr4th-3">a</div>
-                        <div class="gr4th-4">a</div>
+                        <div class="sub5">Fifth</div>
+                        <div class="sub6">Sixth</div>
+                        <div class="gr1st"><?php echo $grShow['ForuthGradingGradeSub1'] ?></div>
+                        <div class="gr1st-2"><?php echo $grShow['ForuthGradingGradeSub2'] ?></div>
+                        <div class="gr1st-3"><?php echo $grShow['ForuthGradingGradeSub3'] ?></div>
+                        <div class="gr1st-4"><?php echo $grShow['ForuthGradingGradeSub4'] ?></div>
+                        <div class="gr1st-5"><?php echo $grShow['ForuthGradingGradeSub5'] ?></div>
+                        <div class="gr1st-6"><?php echo $grShow['ForuthGradingGradeSub6'] ?></div>
                     </div>
                 </div>
+                <?php }?>
             </div>
             
         </div>
     </div>
 </body>
-<script>
-        const genInfo = document.querySelector('.opt1');
-        const grades = document.querySelector('.opt2');
-        const genInfoDis = document.querySelector('.genInfo');
-        const gradesDis = document.querySelector('.grades');
-        const editPop = document.querySelector('.edit');
-        function switcheri(){
-            genInfo.classList.remove("active");
-            grades.classList.add("active");
-            genInfoDis.style.display="none";
-            gradesDis.style.display="block";
-        }
-        function switcherii(){
-            genInfo.classList.add("active");
-            grades.classList.remove("active");
-            genInfoDis.style.display="block";
-            gradesDis.style.display="none";
-        }
-        function showEdit(){
-            editPop.showModal();
-        }
-        function closeEdit(){
-            editPop.close();
-        }
-</script>
+<script src="./scriptspage.js"></script>
 </html>

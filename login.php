@@ -4,11 +4,14 @@ session_start();
 // Include Server Connection Function
 include 'credentials.php';
 
+
+
 // Create a new PDO instance
 try {
-  $pdo = connect();
-  // Set the PDO error mode to exception
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ $pdo = connect();
+    // // Set the PDO error mode to exception
+    // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
   // Check if the form has been submitted
   if (isset($_POST['submit'])) {
