@@ -1,5 +1,4 @@
 <?php
-// Include Connection Function
 include 'credentials.php';
 
 try {
