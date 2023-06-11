@@ -9,11 +9,13 @@ try {
     
     if (isset($_GET['query'])) {
         $query = $_GET['query'];
-        $searchSQL = "SELECT * FROM tblstudents WHERE FirstName LIKE :query OR LastName LIKE :query OR MiddleIntial LIKE :query";
+        $searchSQL = "SELECT * FROM tblstudents WHERE CONCAT(FirstName,' ', LastName) LIKE :query OR LRN = :lrn";
         $stmt = $pdo->prepare($searchSQL);
         $stmt->bindValue(':query', '%' . $query . '%');
+        $stmt->bindValue(':lrn', $query);
         $stmt->execute();
         $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
         
         // Return the search results as JSON
         echo json_encode($searchResults);
