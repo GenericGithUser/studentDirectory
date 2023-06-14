@@ -147,7 +147,19 @@ input::-webkit-inner-spin-button {
     background-color: rgba(67, 240, 15, 0.507);
 }
 
-
+.notLogged{
+    z-index: 1;
+    border: 5px solid lightgreen;
+    border-radius: 10px;
+    box-shadow: 0 3px 25px rgba(32, 89, 194, 0.267);
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+.btnspec{
+    width: 25%;
+    margin: auto;
+}
 /*Edit CSS*/
 .addStuBox{
     display: none;

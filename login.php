@@ -43,6 +43,7 @@ try {
           exit;
         } else {
           // Redirect to dashboard.php or any other page after successful login
+          $_SESSION['student'] = "true";
           header("Location: stuPage.php");
           exit;
         }

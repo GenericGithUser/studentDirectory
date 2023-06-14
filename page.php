@@ -8,6 +8,11 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
+//Currently Disabled due to no way to access 
+// if (isset($_SESSION['student'])){
+//     header("Location: stuPage.php");
+//     exit;
+// }
 
 ?>
 

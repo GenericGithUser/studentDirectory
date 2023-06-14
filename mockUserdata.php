@@ -6,8 +6,9 @@ include './redirect.php';
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login.php
-    header("Location: login.php");
-    exit;
+    // header("Location: login.php");
+    // exit;
+    $notLoggedIn = true;
   }
   $LRN = $_GET['LRN'];
   try{
@@ -37,13 +38,13 @@ if (!isset($_SESSION['user_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style3.css">
-    <title>Sample Student Data</title>
+    <title><?php foreach($select as $result){echo $result['FirstName']."'s";}?> Student Data</title>
 </head>
 <body>
     <div class="navbar">
         <img src="img/logo.png" alt="imgmissing">
         <h3>San Francisco High School Student's Directory</h3>
-        <p><a href="<?php if(isset($_SESSION['student'])){echo'stuPage.php';}else{echo 'page.php';}?>"><img src="img/logout.png" class="logout">Go Back?</a></p>
+        <p><a href="<?php if(isset($_SESSION['student']) || (isset($notLoggedIn))){echo'stuPage.php';}else{echo 'page.php';}?>"><img src="img/logout.png" class="logout">Go Back?</a></p>
     </div>
     <div class="content">
         <div class="profile">
@@ -147,7 +148,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="genInfo">
                 <div class="head">
                     <h1>General Information</h1>
-                        <div class="opt"<?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
+                        <div class="opt"<?php if(isset($_SESSION['student']) || (isset($notLoggedIn))){echo "style='display:none;'";}?>>
                             <div class="modifyBtn btn" onclick="showEdit()">Modify</div>
                             <div class="deleteBtn btn" onclick="openDel()">DELETE</div>
                            
@@ -160,12 +161,14 @@ if (!isset($_SESSION['user_id'])) {
                     <h2>Name:<span class="name"><?php echo $result['FirstName']. " ".$result['MiddleIntial']. " ".$result['LastName']; ?></span></h2>
                     <h2>Age:<span class="name"><?php echo $result['Age'];?></span></h2>
                     <h2>Gender:<span class="name"><?php echo $result['Gender'];?></span></h2>
-                    <h2>Birthday:<span class="name"><?php echo date('F d,Y',strtotime($result['Birthday']));?></span></h2>
-                    <h2>Grade Level:<span class="name"><?php echo $result['GradeLevel'];?></span></h2>
-                    <h2>Strand:<span class="name"><?php echo $result['Strand'];?></span></h2>
-                    <h2>Date Enrolled:<span class="name"><?php echo date('F d,Y',strtotime($result['DateEnrolled']));?></span></h2>
-                    <h2>Phone Number:<span class="name"><?php echo $result['PhoneNumber'];?></span></h2>
-                    <h2>Email:<span class="name"><?php echo $result['email'];?></span></h2>
+                    <?php if(isset($notLoggedIn)){echo"<div class='notLogged'><h2>You Must be logged in to view more of this info</h2>
+                        <a href='login.php'><div class='modifyBtn btn btnspec'>Log-IN</div></a>
+                        </div>;";}else {echo "<h2>Birthday:<span class='name'>".date('F d,Y',strtotime($result['Birthday']))."</span></h2>
+                            <h2>Grade Level:<span class='name'>". $result['GradeLevel']."</span></h2>
+                            <h2>Strand:<span class='name'>". $result['Strand']."</span></h2>
+                            <h2>Date Enrolled:<span class='name'>".date('F d,Y',strtotime($result['DateEnrolled']))."</span></h2>
+                            <h2>Phone Number:<span class='name'>".$result['PhoneNumber']."</span></h2>
+                            <h2>Email:<span class='name'>". $result['email']."</span></h2>";}?>
                     
                 </div>
                 <?php }?>
@@ -366,7 +369,7 @@ if (!isset($_SESSION['user_id'])) {
                 ?>
                 <div class="head">
                     <h1>Student's Grades</h1>
-                    <div class="opt" <?php if(isset($_SESSION['student'])){echo "style='display:none;'";}?>>
+                    <div class="opt" <?php if(isset($_SESSION['student']) || (isset($notLoggedIn))){echo "style='display:none;'";}?>>
                             <div class="modifyBtn btn" onclick="openModG()">Modify</div>
                         </div>
                 </div>
@@ -394,7 +397,7 @@ if (!isset($_SESSION['user_id'])) {
                   $pdo = null;
                 ?>
                 <?php foreach ($grSel as $grShow){ ?>
-                <div class="gradeBox">
+                <div class="gradeBox" <?php if(isset($notLoggedIn)){echo "style='display:none;'";}?>>
                     <div class="firstGrd box">
                         <div class="header">First Grading Grade</div>
                         <div class="sub1">First</div>
@@ -456,6 +459,9 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="gr1st-6"><?php echo $grShow['ForuthGradingGradeSub6'] ?></div>
                     </div>
                 </div>
+                <?php if(isset($notLoggedIn)){echo"<div class='notLogged'><h2>You Must be logged in to view more of this info</h2>
+                        <a href='login.php'><div class='modifyBtn btn btnspec'>Log-IN</div></a>
+                        </div>;";}?>
                 <?php }?>
             </div>
             

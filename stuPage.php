@@ -5,8 +5,9 @@ include 'credentials.php';
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login.php
-    header("Location: login.php");
-    exit;
+    // header("Location: login.php");
+    // exit;
+    $notLoggedIn = true;
   }
   
 ?>
@@ -24,21 +25,21 @@ if (!isset($_SESSION['user_id'])) {
     <div class="navbar">
         <img src="img/logo.png" alt="imgmissing">
         <h3>San Francisco High School Student's Directory</h3>
-        <p><a href="logout.php"><img src="img/logout.png" class="logout">Logout?</a></p>
+        <?php if(isset($notLoggedIn)){echo'<p><a href="login.php"><img src="img/logout.png" class="logout">LogIN</a></p>';}else{echo '<p><a href="logout.php"><img src="img/logout.png" class="logout">Logout?</a></p>';} ?>
     </div>
     <div class="banner">
-        <h2>Hello <?php echo $_SESSION['user_name'] ?> </h2>
+        <h2>Hello <?php if (isset($notLoggedIn)){echo "Visitor";}else {echo $_SESSION['user_name'];} ?> </h2>
         <h2>Welcome to the Student Directory</h2>
     </div>
     <div class="content">
         <h1>What do you want to do?</h1>
         <!--Options-->
-        <div class="container">
+        <div class="container"  <?php if (isset($notLoggedIn)) {echo"style='display:none;'";}?>>
             <div class="search opt" onclick="show1()">
                 <img src="img/search-icon.svg" alt="missing">
                 <h2>Search for a specific student?</h2>
             </div>
-            <div class="viewAll opt" onclick="show2()">
+            <div class="viewAll opt" onclick="show2()"?>
                 <img src="img/eye-icon.svg" alt="missing">
                 <h2>View all students?</h2>
             </div>
@@ -47,6 +48,14 @@ if (!isset($_SESSION['user_id'])) {
                <img src="img/account.png" alt="missing">
                 <h2>View Your Profile?</h2>
             </div></a>
+        </div>
+        <!--Not logged in options-->
+        <div class="container specbox" <?php if (isset($notLoggedIn)) {echo"style='display:block;'";}else{echo "style='display:none;'";}?>>
+            <div class="search opt specop" onclick="show1()">
+                <img src="img/search-icon.svg" alt="missing">
+                <h2>Search for a specific student?</h2>
+            </div>
+            
         </div>
         <!--Search Option-->
         <div class="searchAndResults">
