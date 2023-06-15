@@ -106,8 +106,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 							Andrei Glifonea Vidal<br>
 							Christine Salmingo Tayag<br>
 							Gerard Monsanto<br>
-							Melan Justine<br>
-							Reynally Mae Lastimado<br>
+							Melan Justinebr>
 							Ronalyn Ramos<br></h3>
 						<p>Moral support</p>
 
