@@ -271,8 +271,12 @@
                 }
                 ?>
             </table>
-            <button id="openGradeUpdaterButton" class="edit-button">Open Grade Updater</button>
-
+          
+            <?php
+            if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true) {
+                echo '<button id="openGradeUpdaterButton" class="edit-button">Open Grade Updater</button>';
+            }
+            ?>
             <!-- Grade Updater Modal -->
             <div id="gradeUpdaterModal" class="modal">
                 <div class="modal-content">
