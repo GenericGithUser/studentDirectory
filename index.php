@@ -101,10 +101,10 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 			<!-- Two -->
 			<section id="two" class="wrapper alt spotlight style2">
 				<div class="inner">
-					<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+					<a href="#" class="image"><img src="img/location_c.jpg" alt="" /></a>
 					<div class="content">
-						<h2 class="major">Tempus adipiscing</h2>
-						<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
+						<h2 class="major">Where is San Francisco High School Located? and Brief History</h2>
+						<p>It is situated in Misamis St., Brgy. Sto. Cristo, Bago Bantay, Quezon City. It started as an annex of Quzon City High School Until it became it's own school in 1958</p>
 						<a href="#" class="special">Learn more</a>
 					</div>
 				</div>
@@ -113,10 +113,10 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 			<!-- Three -->
 			<section id="three" class="wrapper spotlight style3">
 				<div class="inner">
-					<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+					<a href="#" class="image"><img src="img/hand_c.jpg" alt="" /></a>
 					<div class="content">
-						<h2 class="major">Nullam dignissim</h2>
-						<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
+						<h2 class="major">Programs Offered</h2>
+						<p>The school offers many programs such as the STE a JHS version of STEM, the TVL course for Senior High, it focuses on Programming or Animation, and many more</p>
 						<a href="#" class="special">Learn more</a>
 					</div>
 				</div>
