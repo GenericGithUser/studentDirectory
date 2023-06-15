@@ -91,7 +91,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 				<div class="inner">
 					<a href="#" class="image"><img src="img/SAM_5296 Cropped.jpg" alt="" /></a>
 					<div class="content">
-						<h2 class="major">Why SFHS?</h2>
+						<h2 class="major"></h2>
 						<p>With meticulously maintained facilities, we provide an ideal environment for learning and growth. Our comprehensive curriculum empowers students with diverse interests, offering a wide array of subjects like Foreign language classes, Programming courses, And Much more. Discover a place that not only nurtures academic success but also embodies the beauty of its surroundings.</p>
 						<a href="https://www.facebook.com/sfhs.directory.ssg" class="special">Learn more</a>
 					</div>
@@ -101,11 +101,11 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 			<!-- Two -->
 			<section id="two" class="wrapper alt spotlight style2">
 				<div class="inner">
-					<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+					<a href="#" class="image"><img src="img/account.png" alt="" /></a>
 					<div class="content">
-						<h2 class="major">Tempus adipiscing</h2>
-						<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
-						<a href="#" class="special">Learn more</a>
+						<h2 class="major">Student Portal</h2>
+						<p>This website acts as a bridge between Students and their information, allowing them access, at any time, to their student information which includes their name, lrn, grades and etc. To be able to Access and take advantage of this website, Contact Us for enrollment using the link bellow</p>
+						<a href="https://www.facebook.com/sfhs.directory.ssg" class="special">Learn more</a>
 					</div>
 				</div>
 			</section>
