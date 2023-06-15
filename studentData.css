@@ -108,6 +108,7 @@ td {
 }
 
 /* Modal styles */
+/* Modal styles */
 .modal {
   display: none;
   position: fixed;
@@ -129,24 +130,28 @@ td {
   transform: translate(-50%, -50%);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  max-width: 600px;
+  max-width: auto;
   padding: 24px;
 }
-.modal input[type=text],input[type=number]{
+
+.modal input[type="text"],
+.modal input[type="number"] {
   font-size: 1.4em;
-  border: 3px solid gray;
-  border-radius: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 3px;
   transition: border 0.5s;
   outline: none;
-  margin-bottom:15px ;
+  text-align: center;
+  margin-bottom: 15px;
 }
-.modal label{
+
+.modal label {
   font-size: 1.4em;
   display: inline-block;
   width: 200px;
-  
 }
-.close {
+
+.modal .close {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -155,8 +160,8 @@ td {
   transition: color 0.3s ease;
 }
 
-.close:hover,
-.close:focus {
+.modal .close:hover,
+.modal .close:focus {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -164,4 +169,3 @@ td {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-
