@@ -47,7 +47,7 @@ a {
   font-size: 1.5em;
   height: 50vh;
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(img/bg.jpg) center center fixed;
+    url(img/bg.jpg) center center ;
   background-size: cover;
   border-bottom: 2px solid gray;
   color: black;

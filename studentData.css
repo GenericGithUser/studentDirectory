@@ -97,6 +97,15 @@ td {
   border: 2px solid red;
   box-shadow: 0 0 10px  darkred;
 }
+.spec{
+  text-decoration: none;
+  color: black;
+  width: 100px;
+}
+.goBackbtn{
+  margin-top: 30px;
+  width: 80px;
+}
 
 /* Modal styles */
 .modal {

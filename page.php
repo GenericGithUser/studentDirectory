@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -44,10 +45,15 @@ if (!isset($_SESSION['user_id'])) {
                 <img src="img/eye-icon.svg" alt="missing">
                 <h2>View all students?</h2>
             </div>
-            <div class="addStu opt" onclick="show3()">
+            <div class="addStu opt" onclick="show3()"<?php if($_SESSION['isAdmin']==false){echo "style='display:none;'";}?>>
                 <img src="img/add-user.png" alt="missing">
                 <h2>Add a Student?</h2>
             </div>
+            <a style="text-decoration: none; color: black; <?php if($_SESSION['isAdmin']!==false){echo "display:none;";}?>" href="studentData.php?LRN=<?php echo $_SESSION['user_id']?>">
+             <div class="addStu opt viewProf">
+               <img src="img/account.png" alt="missing">
+                <h2>View Your Profile?</h2>
+            </div></a>
         </div>
         <!--Search Option-->
         <div class="searchAndResults">
@@ -247,9 +253,10 @@ if (!isset($_SESSION['user_id'])) {
                     $email = $_POST['email'];
                     $password = $_POST['password'];
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    $UserType = "student";
                     //SQL Code and Execution
-                    $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleInitial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber, email, password)
-                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber, :email, :password)";
+                    $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleInitial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber, email, password, UserType)
+                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber, :email, :password, :UserType)";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':LRN', $LRN);
                     $stmt->bindParam(':fname', $fname);
@@ -264,6 +271,7 @@ if (!isset($_SESSION['user_id'])) {
                     $stmt->bindParam(':pNumber', $pNumber);
                     $stmt->bindParam(':email', $email);
                     $stmt->bindParam(':password', $hashed_password);
+                    $stmt->bindParam(':UserType', $UserType);
                     if ($stmt->execute()) {
                     } else {
                         $errorInfo = $stmt->errorInfo();
@@ -293,7 +301,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
     <div class="footer">
         <h3>GroupWhite</h3>
-        <p>wordwordwordword</p>
+        <p>Fidelis Usque Ad Mortem</p>
         <p><a href="">About and Contact Us</a></p>
     </div>
 </body>
