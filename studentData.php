@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="studentData.css">
+    <title>Student Data</title>
 </head>
 
 <body>
@@ -160,9 +161,11 @@
 
             <?php
         if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true) {
-            echo '<button onclick="openModal()" class="edit-button">Update</button>';
+            echo '<button onclick="openModal()" class="edit-button">Update</button>
+            <button onclick="openDelModal()" class="edit-button delete-button">Delete</button>';
         }
         ?>
+        <a href="page.php" class="spec"><div class="goBackbtn btn">Go Back?</div></a>
 
                 <!-- Modal -->
                 <div id="myModal" class="modal">
@@ -205,12 +208,28 @@
                             <label for="email">Email:</label>
                             <input type="text" name="email" value="<?php echo $row['email']; ?>"><br>
 
-                            <input type="submit" value="Update">
+                            <input type="submit" value="Update" class="edit-button">
                         </form>
+                    </div>
+                </div>
+                <div id="myModal" class="modal modal-delete">
+                  
+                    <!--Delete Modal content -->
+                    <div class="modal-content">
+                        <span class="close" onclick="closeDelModal()">&times;</span>
+                        <h2>Delete a Student</h2>
+                        <form action="delete.php?LRN=<?php echo $LRN ?>" method="post">
+                        <h2>Are you sure you want to delete this student?</h2>
+                        <input type="submit" value="YES" name="submit" class="deleteBtn btn">
+                        <button type="button" onclick="closeDelModal()" class="modifyBtn btn">NO</button>
+                    </form>   
+                    
                     </div>
                 </div>
                 
         </div>
+       
+        
         <div class="grades-table-cont">
             <h2>Grades</h2>
             
@@ -259,6 +278,12 @@
                 // Function to close the modal
                 function closeModal() {
                     document.getElementById("myModal").style.display = "none";
+                }
+                function openDelModal(){
+                    document.querySelector(".modal-delete").style.display = "block";
+                }
+                function closeDelModal(){
+                    document.querySelector(".modal-delete").style.display = "none";
                 }
             </script>
         </div>

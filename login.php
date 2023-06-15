@@ -62,7 +62,7 @@ try {
                 // Store student information in session
                 $_SESSION['user_id'] = $student['LRN'];
                 $_SESSION['user_email'] = $student['email'];
-                $_SESSION['user_name'] = $student['name'];
+                $_SESSION['user_name'] = $student['FirstName'];
                 $_SESSION['isAdmin'] = false; // Set isAdmin flag to false for student user
 
                 // Check if the student's password has been set
@@ -72,6 +72,7 @@ try {
                     exit;
                 } else {
                     // Redirect to dashboard.php or any other page after successful login
+                    
                     header("Location: page.php");
                     exit;
                 }
