@@ -94,7 +94,7 @@ if (!isset($_SESSION['user_id'])) {
                             // Iterate over the search results and create HTML elements
                             searchResults.forEach(function(result) {
                                 const resultLink = document.createElement('a');
-                                resultLink.href = `mockUserdata.php?LRN=${result.LRN}`;
+                                resultLink.href = `studentData.php?LRN=${result.LRN}`;
                                 resultLink.textContent = result.FirstName + ' ' + result.LastName;
                                 const resultDiv = document.createElement('div');
                                 resultDiv.classList.add('result');
@@ -135,8 +135,13 @@ if (!isset($_SESSION['user_id'])) {
                     //show all results
                     if (count($viewAll) > 0) {
                         foreach ($viewAll as $result) {
-                            echo "<a href='mockUserdata.php?LRN=" . $result['LRN'] . "'><div class='result'>" . $result['FirstName'] . " " . $result['LastName'] . "</div></a>";
+                            if (isset($_SESSION['user_id'])) {
+                                echo "<a href='studentData.php?LRN=" . $result['LRN'] . "'><div class='result'>" . $result['FirstName'] . " " . $result['LastName'] . "</div></a>";
+                            } else {
+                                echo "<a href='login.php'><div class='result'>" . $result['FirstName'] . " " . $result['LastName'] . "</div></a>";
+                            }
                         }
+                        
                     }
                 } catch (PDOException $e) {
                     // Display an error message if unable to connect to the database

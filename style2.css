@@ -1,292 +1,261 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
-*{
-    font-family: inter;
-    margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
+* {
+  font-family: inter;
+  margin: 0;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
-.navbar{
-    display: flex;
-    flex-wrap: wrap;
-    border-bottom: 5px solid gray;
-    align-items: center;
-    width: 100%;
-    background-color: rgb(245, 245, 169);
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 5px solid gray;
+  align-items: center;
+  width: 100%;
+  background-color: rgb(245, 245, 169);
 }
-.navbar h3{
-    margin-left: 10px;
+.navbar h3 {
+  margin-left: 10px;
 }
-.navbar img{
-    margin-left: 20px;
-    width: 75px;
+.navbar img {
+  margin-left: 20px;
+  width: 75px;
 }
-.navbar p,a{
-    margin-left: auto;
-    margin-right: 30px;
-    text-decoration: none;
-    color: black;
-    transition: all 0.6s;
+.navbar p,
+a {
+  margin-left: auto;
+  margin-right: 30px;
+  text-decoration: none;
+  color: black;
+  transition: all 0.6s;
 }
 
-.navbar .logout{
-    width: 30px;
-    padding: 6px;
-    vertical-align: middle;
+.navbar .logout {
+  width: 30px;
+  padding: 6px;
+  vertical-align: middle;
 }
 /* .navbar p:hover,a:hover{
     background-color: pink;
 } */
-.banner{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    white-space: pre-wrap;
-    font-size: 1.5em;
-    height: 50vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url(img/bg.jpg) center center fixed;
-    background-size: cover;
-    border-bottom:2px solid gray;
-    color: black;
-    
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: pre-wrap;
+  font-size: 1.5em;
+  height: 50vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(img/bg.jpg) center center fixed;
+  background-size: cover;
+  border-bottom: 2px solid gray;
+  color: black;
 }
-.banner h2{
-    color: antiquewhite;
+.banner h2 {
+  color: antiquewhite;
 }
-.content{
-    margin: 15px auto auto auto;
-    padding: 10px;
-    width: 90%;
-    background-color: burlywood;
-    border: 2px solid gray;
-    border-radius: 10px;
-    box-shadow: 0 5px 5px 5px gray;
-    
-    
+.content {
+  margin: 15px auto auto auto;
+  padding: 10px;
+  width: 90%;
+  background-color: burlywood;
+  border: 2px solid gray;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px 5px gray;
 }
-.content h1{
-    text-align: center;
+.content h1 {
+  text-align: center;
 }
-.container{
-    width: 75%;
-    margin: 10px auto auto auto;
-    display: grid;
-    grid-template-columns: repeat(3,20vw);
-    grid-column-gap: 10px;
-    padding: 10px;
-    justify-content: center;
-    
+.container {
+  width: 75%;
+  margin: 10px auto auto auto;
+  display: grid;
+  grid-template-columns: repeat(3, 20vw);
+  grid-column-gap: 10px;
+  padding: 10px;
+  justify-content: center;
 }
 
-.search img{
-    width: 80px;
-    display: block;
-    margin: auto;
-    
+.search img {
+  width: 80px;
+  display: block;
+  margin: auto;
 }
-.viewAll img{
-    margin: auto auto 10px auto;
-    display: block;
-    width:120px;
+.viewAll img {
+  margin: auto auto 10px auto;
+  display: block;
+  width: 120px;
 }
-.addStu img{
-    margin: auto;
-    display: block;
-    width: 85px;
-}
-
-.viewProf img{
-    width: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-.viewProf h2{
-    margin-bottom: 15px;
-    
-}
-.container .opt{
-    background-color: antiquewhite;
-    padding: 10px;
-    border-radius: 15px;
-    border: 8px solid gray;
-    text-align: center;
-    transition: box-shadow 0.5s;
-    cursor: pointer;
-}
-.container .opt:hover{
-   box-shadow: 0 5px 5px 4px black;
-}
-.searchAndResults{
-    display: none;
-    margin-top: 15px;
-    text-align: center;
-}
-#searchQuery{
-    font-size: 1.4em;
-    border: 3px solid gray;
-    border-radius: 10px;
-    transition: border 0.5s;
-    outline: none;
-}
-#searchQuery:focus{
-    border: 4px solid skyblue;
-}
-#srchbtn{
-    font-size: 1.1em;
-    padding: 6px;
-    border-radius: 10px;
-    transition: background-color 0.5s;
-}
-#srchbtn:hover{
-    background-color: lightgreen;
-    cursor: pointer;
-}
-.label{
-    font-size: 1.3em;
-    font-weight: bold;
-}
-.selectOption{
-    font-size: 1em;
-    padding: 3px;
-    border-radius: 5px;
-    outline: none;
-}
-.results{
-    display: none;
-    margin: 10px auto;
-    padding: 10px;
-    width: 80%;
-    border: 3px solid gray;
-    border-radius:10px ;
-    background-color: rgb(245, 245, 169);
-}
-.resultbx{
-    margin-top: 5px;
-    border: 3px solid gray;
-    padding: 5px;
-    background-color: bisque;
-    border-radius: 10px;
-}
-.result{
-    border: 3px solid green;
-    padding: 10px;
-    text-align: start;
-    margin: 5px;
-    color: darkslategray;
-    cursor: pointer;
-    border-radius: 10px;
-}
-.AllRecords{
-    display: none;
-    width: 80%;
-    background-color: white;
-    margin: 10px auto;
-    text-align: center;
-    border: 3px solid gray;
-    border-radius: 10px;
-    padding: 10px;
-    height: 30vh;
-    overflow: scroll;
-}
-.addStuBox{
-    display: none;
-    text-align: center;
-    width: 75%;
-    background-color: rgb(245, 245, 169);
-    padding: 10px;
-    margin: 10px auto;
-    border: 3px solid gray;
-    border-radius: 10px;
-}
-.aSB_form{
-    margin-top: 10px;
-    font-size: 1.2em;
-    border: 3px solid grey;
-    border-radius:10px ;
-}
-.FCont{
-    padding: 10px;
-}
-.FCont label{
-   display: inline-block;
-   width: 150px;
-   text-align: right;
-}
-.aSB_inpbx{
-    font-size: 1.1em;
-    border-radius: 10px;
-    border: 2px solid gray;
-    transition: all 0.5s ease-in-out;
-    outline:none;
-}
-.aSB_inpbx:focus{
-    background-color: lightblue;
-    border-bottom: 5px solid blue;
-}
-#Birthday{
-    font-size: 1.1em;
-    padding: 5px;
-}
-.aSB_btn{
-    padding: 10px;
-    font-size: 1.1em;
-    border: 2px solid gray;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.5s;
-}
-.aSB_btn:hover{
-    background-color: lightgreen;
-    box-shadow: 0 0 2px 2px green;
-    border-color:lightgreen ;
-}
-.aSB_special:hover{
-    box-shadow: 0 0 2px 2px red;
-    background-color: red;
-    border-color: red;
-}
-.aSB_special{
-    background-color: red;
+.addStu img {
+  margin: auto;
+  display: block;
+  width: 85px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.footer{
-    padding: 10px;
-    background-color: black;
-    color: azure;
-    display: grid;
-    margin-top: 100px;
-    grid-template-columns: repeat(3,auto);
-    gap: 40px;
-   justify-content: center;
+.viewProf img {
+  width: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
-.footer a{
-    color: azure;
-    
+.viewProf h2 {
+  margin-bottom: 15px;
+}
+.container .opt {
+  background-color: antiquewhite;
+  padding: 10px;
+  border-radius: 15px;
+  border: 8px solid gray;
+  text-align: center;
+  transition: box-shadow 0.5s;
+  cursor: pointer;
+}
+.container .opt:hover {
+  box-shadow: 0 5px 5px 4px black;
+}
+.searchAndResults {
+  display: none;
+  margin-top: 15px;
+  text-align: center;
+}
+#searchQuery {
+  font-size: 1.4em;
+  border: 3px solid gray;
+  border-radius: 10px;
+  transition: border 0.5s;
+  outline: none;
+}
+#searchQuery:focus {
+  border: 4px solid skyblue;
+}
+#srchbtn {
+  font-size: 1.1em;
+  padding: 6px;
+  border-radius: 10px;
+  transition: background-color 0.5s;
+}
+#srchbtn:hover {
+  background-color: lightgreen;
+  cursor: pointer;
+}
+.label {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.selectOption {
+  font-size: 1em;
+  padding: 3px;
+  border-radius: 5px;
+  outline: none;
+}
+.results {
+  display: none;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  border: 3px solid gray;
+  border-radius: 10px;
+  background-color: rgb(245, 245, 169);
+}
+.resultbx {
+  margin-top: 5px;
+  border: 3px solid gray;
+  padding: 5px;
+  background-color: bisque;
+  border-radius: 10px;
+}
+.result {
+  border: 3px solid green;
+  padding: 10px;
+  text-align: start;
+  margin: 5px;
+  color: darkslategray;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.AllRecords {
+  display: none;
+  width: 80%;
+  background-color: white;
+  margin: 10px auto;
+  text-align: center;
+  border: 3px solid gray;
+  border-radius: 10px;
+  padding: 10px;
+  height: 30vh;
+  overflow: scroll;
+}
+.addStuBox {
+  display: none;
+  text-align: center;
+  width: 75%;
+  background-color: rgb(245, 245, 169);
+  padding: 10px;
+  margin: 10px auto;
+  border: 3px solid gray;
+  border-radius: 10px;
+}
+.aSB_form {
+  margin-top: 10px;
+  font-size: 1.2em;
+  border: 3px solid grey;
+  border-radius: 10px;
+}
+.FCont {
+  padding: 10px;
+}
+.FCont label {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+.aSB_inpbx {
+  font-size: 1.1em;
+  border-radius: 10px;
+  border: 2px solid gray;
+  transition: all 0.5s ease-in-out;
+  outline: none;
+}
+.aSB_inpbx:focus {
+  background-color: lightblue;
+  border-bottom: 5px solid blue;
+}
+#Birthday {
+  font-size: 1.1em;
+  padding: 5px;
+}
+.aSB_btn {
+  padding: 10px;
+  font-size: 1.1em;
+  border: 2px solid gray;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.aSB_btn:hover {
+  background-color: lightgreen;
+  box-shadow: 0 0 2px 2px green;
+  border-color: lightgreen;
+}
+.aSB_special:hover {
+  box-shadow: 0 0 2px 2px red;
+  background-color: red;
+  border-color: red;
+}
+.aSB_special {
+  background-color: red;
+}
+
+.footer {
+  padding: 10px;
+  background-color: black;
+  color: azure;
+  display: grid;
+  margin-top: 100px;
+  grid-template-columns: repeat(3, auto);
+  gap: 40px;
+  justify-content: center;
+}
+.footer a {
+  color: azure;
 }
