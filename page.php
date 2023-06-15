@@ -220,10 +220,7 @@ if (!isset($_SESSION['user_id'])) {
                     <label for="email">Email</label>
                     <input type="text" id="email" name="email" class="aSB_inpbx" required>
                 </div>
-                <div class="FCont">
-                    <label for="password">Password</label>
-                    <input type="text" id="password" name="password" class="aSB_inpbx" required>
-                </div>
+
                 <div class="FCont">
                     <input type="submit" class="aSB_btn" value="Submit">
                     <button type="reset" class="aSB_btn aSB_special">Reset Form?</button>
@@ -251,12 +248,10 @@ if (!isset($_SESSION['user_id'])) {
                     $denrolld = date("Y-m-d");
                     $pNumber = $_POST['pNumber'];
                     $email = $_POST['email'];
-                    $password = $_POST['password'];
-                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                     $UserType = "student";
                     //SQL Code and Execution
                     $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleInitial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber, email, password, UserType)
-                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber, :email, :password, :UserType)";
+                      VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber, :email, null, :UserType)";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':LRN', $LRN);
                     $stmt->bindParam(':fname', $fname);
@@ -270,7 +265,6 @@ if (!isset($_SESSION['user_id'])) {
                     $stmt->bindParam(':denrolld', $denrolld);
                     $stmt->bindParam(':pNumber', $pNumber);
                     $stmt->bindParam(':email', $email);
-                    $stmt->bindParam(':password', $hashed_password);
                     $stmt->bindParam(':UserType', $UserType);
                     if ($stmt->execute()) {
                     } else {

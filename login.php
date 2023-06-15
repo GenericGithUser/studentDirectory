@@ -52,7 +52,18 @@ try {
         // Check if student user exists
         elseif ($student) {
             // Check if the student's password is NULL or the entered password matches
-            if ($student['password'] === NULL || password_verify($lrnOrPassword, $student['password'])) {
+            if ($student['password'] === NULL) {
+                // Store student information in session
+                $_SESSION['user_id'] = $student['LRN'];
+                $_SESSION['user_email'] = $student['email'];
+                $_SESSION['user_name'] = $student['FirstName'];
+                $_SESSION['isAdmin'] = false; // Set isAdmin flag to false for student user
+
+                // Redirect to Password_Update.php with LRN parameter
+                $query_params = http_build_query(['LRN' => $_SESSION['LRN']]);
+                header("Location: Password_Update.php?$query_params");
+                exit;
+            } elseif (password_verify($lrnOrPassword, $student['password'])) {
                 // Store student information in session
                 $_SESSION['user_id'] = $student['LRN'];
                 $_SESSION['user_email'] = $student['email'];
@@ -64,7 +75,7 @@ try {
                 header("Location: index.php?$query_params");
                 exit;
             } else {
-                // Redirect to error.php if the password is not NULL and doesn't match
+                // Redirect to error.php if the password doesn't match
                 header("Location: error.php");
                 exit;
             }
@@ -82,6 +93,7 @@ try {
 // Close the database connection
 $pdo = null;
 ?>
+
 
 
 <!DOCTYPE html>
@@ -113,7 +125,7 @@ $pdo = null;
           <div class="form-heading">
             <img src="img/logo.png" alt="" />
             <h1>Login</h1>
-            <p>Please enter your email and password to log in!</p>
+            <p>Please enter your email and password to log in!<p style="font-size:12.3px; margin-top: 5px; color: gray;  ">For first time logins, Use your LRN as your password </p></p>
           </div>
           <!-- Input Wrap -->
           <div class="input-wrap">

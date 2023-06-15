@@ -133,7 +133,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 							<h3 class="major">Where to enroll?</h3>
 							<p>You can currently enroll onsite and online through the form provided bellow</p>
 							<a href="#" class="special">Enroll now</a>
-						</article>
+						</article> 
 					<article>
 							<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
 							<h3 class="major">Technical-Vociational Strands In programming & animation</h3>
