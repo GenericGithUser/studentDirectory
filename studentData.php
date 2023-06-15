@@ -271,12 +271,12 @@
                 }
                 ?>
             </table>
-            <button id="openGradeUpdaterButton">Open Grade Updater</button>
+            <button id="openGradeUpdaterButton" class="edit-button">Open Grade Updater</button>
 
             <!-- Grade Updater Modal -->
             <div id="gradeUpdaterModal" class="modal">
                 <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
+                    <span class="close" onclick="closeGradeUpdaterModal()">&times;</span>
                     <h2>Update Grades</h2>
                     <form action="updateGrades.php?LRN=<?php echo urlencode($LRN); ?>" method="POST">
                         <table class="grades-table">
