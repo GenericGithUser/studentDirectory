@@ -5,7 +5,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: inter;
+    font-family: inter, sans-serif;
 }
 
 form{
