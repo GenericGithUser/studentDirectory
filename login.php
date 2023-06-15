@@ -56,7 +56,7 @@ try {
                 // Store student information in session
                 $_SESSION['user_id'] = $student['LRN'];
                 $_SESSION['user_email'] = $student['email'];
-                $_SESSION['user_name'] = $student['name'];
+                $_SESSION['user_name'] = $student['FirstName'];
                 $_SESSION['isAdmin'] = false; // Set isAdmin flag to false for student user
 
                 // Redirect to index.php with LRN parameter
