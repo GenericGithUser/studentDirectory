@@ -126,8 +126,13 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 			<section id="four" class="wrapper alt style1">
 				<div class="inner">
 					<h2 class="major">Senior High School Academic Strands Offered</h2>
-					<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
 					<section class="features">
+					<article>
+							<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+							<h3 class="major">Technical-Vociational Strands In programming & animation</h3>
+							<p>Science, Technology, Engineering, and Mathematics are intertwining disciplines when applied in the real world. The difference of the STEM curriculum with the other strands and tracks is the focus on advanced concepts and topics.</p>
+							<a href="#" class="special">Learn more</a>
+						</article>
 						<article>
 							<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
 							<h3 class="major">Science, Technology, Enginering, Mathematics</h3>
