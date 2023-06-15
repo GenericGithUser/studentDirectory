@@ -272,53 +272,52 @@
                 ?>
             </table>
             <button id="openGradeUpdaterButton">Open Grade Updater</button>
-            <button id="closeGradeUpdaterButton">Close Grade Updater</button>
 
             <!-- Grade Updater Modal -->
             <div id="gradeUpdaterModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Update Grades</h2>
-        <form action="updateGrades.php?LRN=<?php echo urlencode($LRN); ?>" method="POST">
-            <table class="grades-table">
-                <tr>
-                    <th>Subject</th>
-                    <th>Quarter 1</th>
-                    <th>Quarter 2</th>
-                    <th>Quarter 3</th>
-                    <th>Quarter 4</th>
-                </tr>
-                <?php
-                // Retrieve the grades for the student based on LRN
-                try {
-                    $pdo = connect();
-                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Update Grades</h2>
+                    <form action="updateGrades.php?LRN=<?php echo urlencode($LRN); ?>" method="POST">
+                        <table class="grades-table">
+                            <tr>
+                                <th>Subject</th>
+                                <th>Quarter 1</th>
+                                <th>Quarter 2</th>
+                                <th>Quarter 3</th>
+                                <th>Quarter 4</th>
+                            </tr>
+                            <?php
+                            // Retrieve the grades for the student based on LRN
+                            try {
+                                $pdo = connect();
+                                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    $gradesQuery = "SELECT * FROM grades WHERE LRN = :LRN";
-                    $gradesStmt = $pdo->prepare($gradesQuery);
-                    $gradesStmt->bindParam(':LRN', $LRN);
-                    $gradesStmt->execute();
-                    $grades = $gradesStmt->fetchAll(PDO::FETCH_ASSOC);
+                                $gradesQuery = "SELECT * FROM grades WHERE LRN = :LRN";
+                                $gradesStmt = $pdo->prepare($gradesQuery);
+                                $gradesStmt->bindParam(':LRN', $LRN);
+                                $gradesStmt->execute();
+                                $grades = $gradesStmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    // Loop through the grades and display them in the table
-                    for ($i = 1; $i <= 8; $i++) {
-                        echo '<tr>';
-                        echo '<td>Subject ' . $i . '</td>';
-                        echo '<td><input type="text" name="quarter1_subject' . $i . '" value="' . $grades[0]['Quarter1_Subject' . $i] . '"></td>';
-                        echo '<td><input type="text" name="quarter2_subject' . $i . '" value="' . $grades[0]['Quarter2_Subject' . $i] . '"></td>';
-                        echo '<td><input type="text" name="quarter3_subject' . $i . '" value="' . $grades[0]['Quarter3_Subject' . $i] . '"></td>';
-                        echo '<td><input type="text" name="quarter4_subject' . $i . '" value="' . $grades[0]['Quarter4_Subject' . $i] . '"></td>';
-                        echo '</tr>';
-                    }
-                } catch (PDOException $e) {
-                    echo "Connection failed: " . $e->getMessage();
-                }
-                ?>
-            </table>
-            <input type="submit" value="Update Grades" class="special">
-        </form>
-    </div>
-</div>
+                                // Loop through the grades and display them in the table
+                                for ($i = 1; $i <= 8; $i++) {
+                                    echo '<tr>';
+                                    echo '<td>Subject ' . $i . '</td>';
+                                    echo '<td><input type="text" name="quarter1_subject' . $i . '" value="' . $grades[0]['Quarter1_Subject' . $i] . '"></td>';
+                                    echo '<td><input type="text" name="quarter2_subject' . $i . '" value="' . $grades[0]['Quarter2_Subject' . $i] . '"></td>';
+                                    echo '<td><input type="text" name="quarter3_subject' . $i . '" value="' . $grades[0]['Quarter3_Subject' . $i] . '"></td>';
+                                    echo '<td><input type="text" name="quarter4_subject' . $i . '" value="' . $grades[0]['Quarter4_Subject' . $i] . '"></td>';
+                                    echo '</tr>';
+                                }
+                            } catch (PDOException $e) {
+                                echo "Connection failed: " . $e->getMessage();
+                            }
+                            ?>
+                        </table>
+                        <input type="submit" value="Update Grades" class="special">
+                    </form>
+                </div>
+            </div>
 
             <script>
                 // Function to open the modal
