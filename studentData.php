@@ -355,9 +355,17 @@
             </script>
         </div>
     </div>
-    <a href="index.php" class="spec">
-                <div class="goBackbtn btn">Go Back?</div>
-            </a>
+
+            <?php
+            if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true) {
+                echo '<a href="page.php" class="spec"> <div class="goBackbtn btn">Go Back ?</div>';
+            }
+            else{
+                echo '<a href="index.php" class="spec"> <div class="goBackbtn btn">Go Back ?</div>';
+            }
+            ?>
+          
+          
 </body>
 
 </html>
