@@ -166,9 +166,7 @@
             <button onclick="openDelModal()" class="edit-button delete-button">Delete</button>';
             }
             ?>
-            <a href="index.php" class="spec">
-                <div class="goBackbtn btn">Go Back?</div>
-            </a>
+          
 
             <!-- Modal -->
             <div id="myModal" class="modal">
@@ -357,6 +355,9 @@
             </script>
         </div>
     </div>
+    <a href="index.php" class="spec">
+                <div class="goBackbtn btn">Go Back?</div>
+            </a>
 </body>
 
 </html>
