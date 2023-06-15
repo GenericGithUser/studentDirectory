@@ -26,12 +26,12 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <div class="navbar">
         <img src="img/logo.png" alt="imgmissing">
-        <h3>San Francisco High School Admin Dashboard</h3>
+        <h3>San Francisco High School <?php if($_SESSION['isAdmin']==false){echo"Student Dashboard";}else{echo"Admin Dashboard";}?></h3>
         <p><a href="logout.php"><img src="img/logout.png" class="logout">Logout?</a></p>
     </div>
     <div class="banner">
         <h2>Hello <?php echo $_SESSION['user_name'] ?> </h2>
-        <h2>Welcome to the Admin Dashboard</h2>
+        <h2>Welcome to the  <?php if($_SESSION['isAdmin']==false){echo"Student Dashboard";}else{echo"Admin Dashboard";}?></h2>
     </div>
     <div class="content">
         <h1>What do you want to do?</h1>
