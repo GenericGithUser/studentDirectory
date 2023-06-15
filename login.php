@@ -142,6 +142,7 @@ $pdo = null;
               </div>
             </div>
             <button type="submit" name="submit">Login</button>
+            <cite class="forgot"> <a href="reset_password.php">forgot password?</a></cite> 
           </div>
         </form>
       </div>
