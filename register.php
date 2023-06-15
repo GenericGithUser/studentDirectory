@@ -1,67 +1,68 @@
 <?php
-session_start();
+// Include the credentials file
+require_once "credentials.php";
 
-// Include Server Connection Function
-include 'credentials.php';
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Retrieve form data
+    $lrn = $_POST["lrn"];
+    $firstName = $_POST["first_name"];
+    $middleInitial = $_POST["middle_initial"];
+    $lastName = $_POST["last_name"];
+    $age = $_POST["age"];
+    $gender = $_POST["gender"];
+    $birthday = $_POST["birthday"];
+    $gradeLevel = $_POST["grade_level"];
+    $strand = $_POST["strand"];
+    $phoneNumber = $_POST["phone_number"];
+    $email = $_POST["email"];
+    $dateEnrolled = date("Y-m-d"); // Automatically obtain the current date
+    $password = $_POST["password"];
 
-// Create a new PDO instance
-try {
-    $pdo = connect();
+    // Perform database insertion (assuming you're using MySQLi)
 
-    // Check if the form has been submitted
-    if (isset($_POST['submit'])) {
-        // Retrieve data from form
-        $name = htmlspecialchars($_POST["name"], ENT_QUOTES);
-        $email = htmlspecialchars($_POST["email"], ENT_QUOTES);
-        $password = htmlspecialchars($_POST["password"], ENT_QUOTES);
+    // Create a new MySQLi connection
+    $conn = new mysqli("localhost", "root", "", "dbstudentdirectory");
 
-        // Hash the password
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Execute SQL query to insert admin account into the users table
-        $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $hashedPassword);
-        $stmt->execute();
-
-        // Redirect to login.php after successful registration
-        header("Location: login.php");
-        exit;
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-} catch (PDOException $e) {
-    // Display an error message if unable to connect to the database
-    echo "Connection failed: " . $e->getMessage();
+
+    // Prepare the SQL statement
+    $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleInitial, LastName, Age, Gender, Birthday, GradeLevel, Strand, PhoneNumber, email, DateEnrolled, password)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    // Prepare and bind the statement
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param(
+        "isssissssssss",
+        $lrn,
+        $firstName,
+        $middleInitial,
+        $lastName,
+        $age,
+        $gender,
+        $birthday,
+        $gradeLevel,
+        $strand,
+        $phoneNumber,
+        $email,
+        $dateEnrolled,
+        $password
+    );
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        // Registration successful
+        echo "Registration successful!";
+    } else {
+        // Registration failed
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement and connection
+    $stmt->close();
+    $conn->close();
 }
-
-// Close the database connection
-$pdo = null;
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="style.css">
-    <title>Register</title>
-</head>
-<body>
-<form action="register.php" method="POST">
-    <h1>Register</h1>
-    <div class="internalFormWrapper">
-        <p>
-            <input type="text" id="name" name="name" required placeholder="Name">
-        </p>
-        <p>
-            <input type="email" id="email" name="email" required placeholder="Email">
-        </p>
-        <p>
-            <input type="password" id="password" name="password" required placeholder="Password">
-        </p>
-    </div>
-    <p>
-        <button type="submit" name="submit">Register</button>
-    </p>
-</form>
-</body>
-</html>
