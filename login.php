@@ -96,25 +96,54 @@ $pdo = null;
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="style.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Login</title>
-</head>
-<body>
-<form action="login.php" method="POST">
-    <h1>Login</h1>
-    <div class="internalFormWrapper">
-        <p>
-            <input type="email" id="email" name="email" required placeholder="Email">
-        </p>
-        <p>
-            <input type="text" id="lrn_password" name="lrn_password" required placeholder="LRN or Password">
-        </p>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sign-up-form">
+        <!-- Left (Form Image) -->
+        <div class="form-image">
+          <img src="./assets/form-bg.png" alt="" />
+        </div>
+        <!-- Right (Form Content) -->
+        <form class="form-content" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+          <!-- Form Heading -->
+          <div class="form-heading">
+            <img src="img/logo.png" alt="" />
+            <h1>Login</h1>
+            <p>Please enter your email and password to log in!</p>
+          </div>
+          <!-- Input Wrap -->
+          <div class="input-wrap">
+            <div class="input">
+              <input type="email" name="email" id="email" placeholder=" " />
+              <div class="label">
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="input">
+              <input type="password" name="lrn_password" id="lrn_password" placeholder=" " />
+              <div class="label">
+                <label for="lrn_password">Password</label>
+              </div>
+            </div>
+            <button type="submit" name="submit">Login</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <p>
-        <button type="submit" name="submit">Login</button>
-    </p>
-</form>
-</body>
+  </body>
 </html>
