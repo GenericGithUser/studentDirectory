@@ -208,7 +208,7 @@
                             <label for="email">Email:</label>
                             <input type="text" name="email" value="<?php echo $row['email']; ?>"><br>
 
-                            <input type="submit" value="Update">
+                            <input type="submit" value="Update" class="edit-button">
                         </form>
                     </div>
                 </div>

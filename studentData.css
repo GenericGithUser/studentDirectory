@@ -132,7 +132,20 @@ td {
   max-width: 600px;
   padding: 24px;
 }
-
+.modal input[type=text],input[type=number]{
+  font-size: 1.4em;
+  border: 3px solid gray;
+  border-radius: 10px;
+  transition: border 0.5s;
+  outline: none;
+  margin-bottom:15px ;
+}
+.modal label{
+  font-size: 1.4em;
+  display: inline-block;
+  width: 200px;
+  
+}
 .close {
   color: #aaa;
   float: right;
