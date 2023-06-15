@@ -91,7 +91,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 				<div class="inner">
 					<a href="#" class="image"><img src="img/SAM_5296 Cropped.jpg" alt="" /></a>
 					<div class="content">
-						<h2 class="major"></h2>
+						<h2 class="major">Why sfhs?</h2>
 						<p>With meticulously maintained facilities, we provide an ideal environment for learning and growth. Our comprehensive curriculum empowers students with diverse interests, offering a wide array of subjects like Foreign language classes, Programming courses, And Much more. Discover a place that not only nurtures academic success but also embodies the beauty of its surroundings.</p>
 						<a href="https://www.facebook.com/sfhs.directory.ssg" class="special">Learn more</a>
 					</div>

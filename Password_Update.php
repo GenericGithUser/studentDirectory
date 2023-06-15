@@ -12,7 +12,7 @@
         <img src="./assets/form-bg.png" alt="">
       </div>
       <!-- Right (Form Content) -->
-      <form class="form-content" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+      <form class="form-content" action="" method="POST">
         <!-- Form Heading -->
         <div class="form-heading">
           <img src="img/logo.png" alt="">
@@ -39,6 +39,8 @@
   </div>
 
   <?php
+  session_start();
+
   // Include Server Connection Function
   include 'credentials.php';
 
@@ -49,7 +51,7 @@
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Check if the form has been submitted
-    if(isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {
       // Retrieve data from form
       $new_password = htmlspecialchars($_POST["new_password"], ENT_QUOTES);
       $confirm_password = htmlspecialchars($_POST["confirm_password"], ENT_QUOTES);
@@ -75,7 +77,7 @@
         exit;
       }
     }
-  } catch(PDOException $e) {
+  } catch (PDOException $e) {
     // Display an error message if unable to connect to the database
     echo "Connection failed: " . $e->getMessage();
   }

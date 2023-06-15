@@ -108,7 +108,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 							Gerard Monsanto<br>
 							Melan Justine benliro<br>
 							Ronalyn Ramos<br></h3>
-						<p>Moral support</p>
+						<p>Misc.</p>
 
 						<a href="#" class="special">Learn more</a>
 					</article>
