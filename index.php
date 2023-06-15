@@ -125,31 +125,31 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 			<!-- Four -->
 			<section id="four" class="wrapper alt style1">
 				<div class="inner">
-					<h2 class="major">Vitae phasellus</h2>
+					<h2 class="major">Senior High School Academic Strands Offered</h2>
 					<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
 					<section class="features">
 						<article>
 							<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
-							<h3 class="major">Sed feugiat lorem</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing vehicula id nulla dignissim dapibus ultrices.</p>
+							<h3 class="major">Science, Technology, Enginering, Mathematics</h3>
+							<p>Science, Technology, Engineering, and Mathematics are intertwining disciplines when applied in the real world. The difference of the STEM curriculum with the other strands and tracks is the focus on advanced concepts and topics.</p>
 							<a href="#" class="special">Learn more</a>
 						</article>
 						<article>
 							<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
-							<h3 class="major">Nisl placerat</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing vehicula id nulla dignissim dapibus ultrices.</p>
+							<h3 class="major">Accounting, Business and Management</h3>
+							<p>The Accountancy, Business and Management (ABM) strand would focus on the basic concepts of financial management, business management, corporate operations, and all things that are accounted for. ABM can also lead you to careers on management and accounting which could be sales manager, human resources, marketing director, project officer, bookkeeper, accounting clerk, internal auditor, and a lot more.</p>
 							<a href="#" class="special">Learn more</a>
 						</article>
 						<article>
 							<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
-							<h3 class="major">Ante fermentum</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing vehicula id nulla dignissim dapibus ultrices.</p>
+							<h3 class="major">Humanities And Social Sciences Strand</h3>
+							<p>The HUMMS strand is designed for those who wonder what is on the other side of the wall. In other words, you are ready to take on the world and talk to a lot of people. This is for those who are considering taking up journalism, communication arts, liberal arts, education, and other social science-related courses in college.</p>
 							<a href="#" class="special">Learn more</a>
 						</article>
 						<article>
 							<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-							<h3 class="major">Fusce consequat</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing vehicula id nulla dignissim dapibus ultrices.</p>
+							<h3 class="major">General Academic Strand</h3>
+							<p>While the other strands are career-specific, the General Academic Strand is great for students who are still undecided on which track to take. You can choose electives from the different academic strands under this track.</p>
 							<a href="#" class="special">Learn more</a>
 						</article>
 					</section>
