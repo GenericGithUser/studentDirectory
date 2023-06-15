@@ -248,7 +248,7 @@ if (!isset($_SESSION['user_id'])) {
                     $password = $_POST['password'];
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                     //SQL Code and Execution
-                    $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleIntial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber, email, password)
+                    $sql = "INSERT INTO tblstudents (LRN, FirstName, MiddleInitial, LastName, Age, Gender, Birthday, GradeLevel, Strand, DateEnrolled, PhoneNumber, email, password)
                       VALUES(:LRN, :fname, :mname, :lname, :age, :gender, :Birthday, :grdlvl, :strand, :denrolld, :pNumber, :email, :password)";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':LRN', $LRN);
@@ -270,12 +270,8 @@ if (!isset($_SESSION['user_id'])) {
                         echo "Error: " . $errorInfo[2];
 
                       }
-                      $sqlAddForeign = "INSERT INTO  tblgrades  ( ID ,  LRN ,  FirstGradingGradeSub1 ,  FirstGradingGradeSub2 ,  FirstGradingGradeSub3 , 
-                       FirstGradingGradeSub4 ,  FirstGradingGradeSub5 ,  FirstGradingGradeSub6 ,  SecondGradingGradeSub1 ,  SecondGradingGradeSub2 , 
-                        SecondGradingGradeSub3 ,  SecondGradingGradeSub4 ,  SecondGradingGradeSub5 ,  SecondGradingGradeSub6 ,  ThirdGradingGradeSub1 , 
-                         ThirdGradingGradeSub2 ,  ThirdGradingGradeSub3 ,  ThirdGradingGradeSub4 ,  ThirdGradingGradeSub5 ,  ThirdGradingGradeSub6 ,  ForuthGradingGradeSub1 , 
-                          ForuthGradingGradeSub2 ,  ForuthGradingGradeSub3 ,  ForuthGradingGradeSub4 ,  ForuthGradingGradeSub5 ,  ForuthGradingGradeSub6 )
-                           VALUES (NULL, :LRN, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);";
+                      $sqlAddForeign = "INSERT INTO grades (LRN)
+                           VALUES (:LRN);";
                         $stmt = $pdo->prepare($sqlAddForeign);
                         $stmt->bindParam(':LRN', $LRN);
                         if ($stmt->execute()) {
