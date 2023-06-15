@@ -22,7 +22,7 @@ body {
   height: 100vh;
   display: grid;
   place-items: center;
-  background: url(img/FnRvfyvakAEwzkq.jpg) rgba(221, 255, 148, 0.681);
+  background: url(img/FnRvfyvakAEwzkq.jpg) rgb(155, 155, 155);
   background-size: cover;
   background-blend-mode: multiply;
   background-position: left;
