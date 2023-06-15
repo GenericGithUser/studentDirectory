@@ -49,7 +49,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == false) {
 				<h2>Menu</h2>
 				<ul class="links">
 					<li><a href="index.php">Home</a></li>
-					<li><a href="generic.html">Generic</a></li>
+					<li><a href="about.php">About</a></li>
 					<?php
 					 if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true) {
 							echo '<li><a href="page.php">ADMIN DASHBOARD</a></li>';
