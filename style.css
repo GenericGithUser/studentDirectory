@@ -39,7 +39,12 @@ body {
   border-radius: 12px;
   background-color: #fff;
 }
-
+.textContainer{
+  position: fixed;
+  background-color: white;
+  padding: 23px;
+  border-radius: 12px;
+}
 .form-image {
   display: none;
 }

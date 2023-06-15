@@ -39,16 +39,10 @@ try {
                 $_SESSION['user_name'] = $admin['name'];
                 $_SESSION['isAdmin'] = true; // Set isAdmin flag to true for admin user
 
-                // Check if the admin's password has been set
-                if ($admin['password'] === NULL && $admin['LRN'] === $lrnOrPassword) {
-                    // Redirect to password_update.php for the first-time login
-                    header("Location: password_update.php?first_login=true");
-                    exit;
-                } else {
-                    // Redirect to dashboard.php or any other page after successful login
-                    header("Location: page.php");
-                    exit;
-                }
+                // Redirect to index.php with LRN parameter
+                $query_params = http_build_query(['LRN' => $_SESSION['LRN']]);
+                header("Location: index.php?$query_params");
+                exit;
             } else {
                 // Redirect to error.php if the password is not NULL and doesn't match
                 header("Location: error.php");
@@ -65,16 +59,10 @@ try {
                 $_SESSION['user_name'] = $student['name'];
                 $_SESSION['isAdmin'] = false; // Set isAdmin flag to false for student user
 
-                // Check if the student's password has been set
-                if ($student['password'] === NULL && $student['LRN'] === $lrnOrPassword) {
-                    // Redirect to password_update.php for the first-time login
-                    header("Location: password_update.php?first_login=true");
-                    exit;
-                } else {
-                    // Redirect to dashboard.php or any other page after successful login
-                    header("Location: page.php");
-                    exit;
-                }
+                // Redirect to index.php with LRN parameter
+                $query_params = http_build_query(['LRN' => $_SESSION['LRN']]);
+                header("Location: index.php?$query_params");
+                exit;
             } else {
                 // Redirect to error.php if the password is not NULL and doesn't match
                 header("Location: error.php");
@@ -94,6 +82,7 @@ try {
 // Close the database connection
 $pdo = null;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
