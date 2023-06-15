@@ -165,7 +165,7 @@
             <button onclick="openDelModal()" class="edit-button delete-button">Delete</button>';
         }
         ?>
-        <a href="page.php" class="spec"><div class="goBackbtn btn">Go Back?</div></a>
+        <a href="index.php" class="spec"><div class="goBackbtn btn">Go Back?</div></a>
 
                 <!-- Modal -->
                 <div id="myModal" class="modal">
